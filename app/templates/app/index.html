@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'app/style.css' %}" />
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <title>allianstonebk Limited</title>
+
+</head>
+
+<body>
+    <main>
+        <div class="topbar">
+            <img src="{% static 'app/image/icon-topbar-info.svg' %}" alt="" style="height:20px;">
+            <span>World class service from your true international community bank</span>
+        </div>
+
+        <nav class="navbar navbar-expand-lg w-100">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'app/image/logo.png' %}" alt="logo" />
+                </a>
+
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="toggler-icon" aria-hidden="true">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-around">
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Personal</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Cooperate</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Insurance</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Mortgages</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Sefton Savings <i
+                                    class="bi bi-chevron-down"></i></a></li>
+                    </ul>
+
+                    <div class="d-flex">
+                        <a href="#" class="text-white fs-6">Login</a>
+                        <a href="#" class="btn auth-btn auth-btn--primary fs-6">Open An Account <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle .open class on navbar-toggler so bars animate to X while keeping Bootstrap collapse behavior
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggler = document.querySelector('.navbar-toggler');
+            const collapseEl = document.getElementById('navbarNav');
+
+            if (!toggler) return;
+
+            toggler.addEventListener('click', function () {
+                // Toggle visual state immediately
+                toggler.classList.toggle('open');
+            });
+
+            // Ensure toggler state syncs with collapse events (handles programmatic toggles)
+            collapseEl.addEventListener('shown.bs.collapse', function () { toggler.classList.add('open'); });
+            collapseEl.addEventListener('hidden.bs.collapse', function () { toggler.classList.remove('open'); });
+        });
+    </script>
+</body>
+
+</html>
