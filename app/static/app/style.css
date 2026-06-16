@@ -22,7 +22,6 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -33,8 +32,8 @@
 /* Navbar fixed below topbar using CSS variable */
 nav.navbar{
   background: var(--nav-bg) !important;
-  position: fixed;
-  top: calc(var(--topbar-height));
+  /* margin-top: calc(var(--topbar-height)); */
+
   left: 0;
   right: 0;
   min-height: var(--navbar-min-height);
@@ -45,9 +44,9 @@ nav.navbar{
 }
 
 /* Make room for fixed topbar + navbar */
-body{
+/* body{
   padding-top: calc(var(--topbar-height) + var(--navbar-min-height));
-}
+} */
 
 /* Brand */
 .navbar-brand img{
@@ -217,6 +216,7 @@ body{
   }
 }
 
+
 /* Keep toggler visible and functional on small screens */
 @media (max-width: 991.98px) {
   .navbar-collapse {
@@ -234,6 +234,92 @@ body{
     margin-top: 8px;
   }
 }
-.hero{
-     background-image: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)), url(./image/section-bg.svg);
+.hero {
+  background-image: radial-gradient(#0b413aef, #3e7e77c7,#104A43), url(./image/section-bg.svg);
+  padding-left: 10px;
+  padding-right:10px ;
+  width: 100%;
+  background-size: cover !important;
+  background-position: top;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:20px;
+}
+.hero div{
+  width:100%;
+  padding: 20px;
+  height: auto;
+}
+.hero div:nth-child(2){
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  background: url(./image/hero-image.jpg);
+  margin-top: 40px;
+}
+.hero div:nth-child(1) p:nth-child(1){
+  color:#c7d46f;
+  margin: 20px;
+}
+.hero div:nth-child(1) p:nth-child(2){
+  color: white;
+}
+.hero div:nth-child(1) h2{
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.hero div:nth-child(1) .linkholder{
+  display:flex;
+  justify-content: space-between;
+  border:1px solid #c7d46f;
+  border-radius: 20px;
+  margin-top: 80px;
+}
+.hero div:nth-child(1) .linkholder a{
+  background: #c7d46f;
+  text-decoration: none;
+  padding:10px;
+  color: #000;
+  border-radius: 20px;
+}
+
+.hero div h1{
+  color:#c7d46f;
+  font-size: 90px;
+  margin: 10px;
+}
+.animeholder{
+  width: 100%;
+
+  height: 20vh;
+  margin-top:400px;
+}
+.animeholder .card{
+   -webkit-backdrop-filter: blur(15px);
+    backdrop-filter:blur(15px) ;
+    border: 1px solid rgba(255, 255, 255, .5);
+    background: transparent;
+    width: 80%;
+    border-radius: 20px;
+}
+@media screen and (max-width:1025px) {
+  .hero{
+    grid-template-columns: 1fr 1fr;
+  }
+  
+}
+@media screen and (max-width:768px) {
+  .hero{
+    grid-template-columns: 1fr;
+  }
+  .hero div:nth-child(2){
+    background-size: cover;
+    background-position: right;
+  }
+}
+@media screen  and (max-width:480px) {
+   .hero div:nth-child(2){
+    width:100%;
+   }
 }
