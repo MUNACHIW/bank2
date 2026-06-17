@@ -22,18 +22,13 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1100;
+  margin-top: 0px !important;
   padding: 6px 12px; /* flexible vertical space */
 }
 
 /* Navbar fixed below topbar using CSS variable */
 nav.navbar{
   background: var(--nav-bg) !important;
-  /* margin-top: calc(var(--topbar-height)); */
-
   left: 0;
   right: 0;
   min-height: var(--navbar-min-height);
@@ -44,9 +39,7 @@ nav.navbar{
 }
 
 /* Make room for fixed topbar + navbar */
-/* body{
-  padding-top: calc(var(--topbar-height) + var(--navbar-min-height));
-} */
+
 
 /* Brand */
 .navbar-brand img{
@@ -126,16 +119,10 @@ nav.navbar{
     --navbar-min-height: 56px;
   }
 
-  body{
-    padding-top: calc(var(--topbar-height) + var(--navbar-min-height));
-  }
+ 
 
-  .navbar-nav{
-    margin-top: 8px;
-  }
 
   .d-flex{
-    margin-top: 8px;
     width: 100%;
     justify-content: center;
     gap: 12px;
@@ -231,7 +218,6 @@ nav.navbar{
   .navbar .d-flex {
     width: 100%;
     justify-content: center;
-    margin-top: 8px;
   }
 }
 .hero {
@@ -283,6 +269,10 @@ nav.navbar{
   color: #000;
   border-radius: 20px;
 }
+.hero div hr{
+  background: gainsboro;
+  color: gainsboro;
+}
 
 .hero div h1{
   color:#c7d46f;
@@ -291,18 +281,51 @@ nav.navbar{
 }
 .animeholder{
   width: 100%;
-
   height: 20vh;
-  margin-top:400px;
+  margin-top: 400px;
+  position: relative;
+  overflow: hidden;
 }
+
 .animeholder .card{
-   -webkit-backdrop-filter: blur(15px);
-    backdrop-filter:blur(15px) ;
-    border: 1px solid rgba(255, 255, 255, .5);
-    background: transparent;
-    width: 80%;
-    border-radius: 20px;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, .5);
+  background: transparent;
+  width: 80%;
+  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) translateX(0);
+  will-change: transform;
+  animation: slide 4s linear infinite alternate; /* faster and smooth */
 }
+
+.animeholder .card img{
+  max-width: 100%;
+  display: block;
+}
+
+/* animate with transform for smoothness */
+@keyframes slide {
+  from {
+    transform: translateY(-50%) translateX(0);
+  }
+  to {
+    transform: translateY(-50%) translateX(calc(100% - 80%)); /* matches width:80% */
+  }
+}
+
+/* respect reduced motion preference */
+@media (prefers-reduced-motion: reduce){
+  .animeholder .card{
+    animation: none;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+
 @media screen and (max-width:1025px) {
   .hero{
     grid-template-columns: 1fr 1fr;
@@ -322,4 +345,93 @@ nav.navbar{
    .hero div:nth-child(2){
     width:100%;
    }
+}
+:root {
+  --marquee-duration: 12s; /* smaller value = faster. adjust to taste */
+  --bg: #c7d46f;
+  --gap: 50px;
+  --font-size: 30px;
+}
+
+.marquee {
+  overflow: hidden;
+  background: var(--bg);
+  padding: 10px 0;
+}
+
+.bankmotion {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  /* keep the two inner blocks side by side */
+}
+
+.bankmotion__inner {
+  display: inline-flex;
+  gap: var(--gap);
+  align-items: center;
+  white-space: nowrap;
+  /* ensure each inner block takes up its content width */
+}
+
+.bankmotion__inner p {
+  margin: 0;
+  font-size: var(--font-size);
+}
+
+/* animate the whole bankmotion by translating left by 50% of its total width
+   because we duplicated the content, moving -50% creates a seamless loop */
+.bankmotion {
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* optional pause on hover */
+.marquee:hover .bankmotion {
+  animation-play-state: paused;
+}
+.empower{
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  background: white;
+}
+.empower div, p{
+  width: 45%;
+  padding: 10px;
+}
+.empower div p{
+  color: #104A43;
+  font: 700;
+  margin:30px;
+}
+.empower div h1{
+  margin-left: 30px;
+}
+.empower p{
+  margin: 30px;
+}
+@media screen and (max-width:1025px) {
+  .empower{
+    flex-direction: column;
+  }
+  .empower div, p {
+    width: 90%;
+  }
+}
+@media screen and (max-width:480px) {
+  .empower p, h1{
+    font-size: 15px;
+  }
+  .empower h1{
+    width: 100%;
+  }
 }
