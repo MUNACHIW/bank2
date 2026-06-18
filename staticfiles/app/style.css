@@ -544,4 +544,58 @@ iframe.goog-te-banner-frame { display: none !important; }
     grid-template-columns: 1fr ;
   }
 }
- 
+.service{
+  display: flex !important;
+  align-items: center;
+  gap: 20px !important;
+}
+.service div{
+  background: #ECF0CD !important;
+  width: 45% !important;
+  border-radius: 20px;
+  padding: 20px;
+  padding-bottom: 0px;
+}
+.service div p{
+  background: #c7d46f;
+  padding: 8px;
+  border-radius: 20px;
+  margin: 10px;
+  text-align: center;
+  font: 100;
+  font-size: 14px;
+  width: 220px;
+  margin-top: 20px;
+}
+.service div h5{
+  margin: 10px;
+  margin-top: 20px;
+  font: 800;
+  font-weight: 600;
+  font-style: oblique;
+}
+.service div:nth-child(2){
+  background: #104A43 !important;
+}
+.service div:nth-child(2) h5{
+  color: white;
+}
+.service div img{
+  width: 100%;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+@media screen and (max-width:1025px) {
+  .service{
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width:768px) {
+  .service{
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .service div{
+    width: 100% !important;
+  }
+} 
