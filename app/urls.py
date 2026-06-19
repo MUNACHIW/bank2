@@ -5,5 +5,8 @@ app_name = "app"
 urlpatterns = [
     path(
         "", views.landing, name="landing"
-    )
+    ),
+    path("login/", views.login, name="login")
+    
+    
 ]

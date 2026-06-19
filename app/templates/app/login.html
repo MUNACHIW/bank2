@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'app/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'app/login.css' %}" />
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <title>allianstonebk Limited</title>
+</head>
+
+<body class="login-body">
+
+    <main class="login-screen">
+
+        <!-- ======================== LEFT PANEL ======================== -->
+        <section class="login-left">
+            <div class="login-left-bg"></div>
+            <div class="login-ring login-ring-1"></div>
+            <div class="login-ring login-ring-2"></div>
+            <div class="login-dots"></div>
+
+            <div class="login-left-inner">
+
+                <!-- Brand -->
+                <div class="login-brand">
+
+                    <h2>allianstonebk Limited<br><em>ONLINE</em></h2>
+                </div>
+
+                <h1>Swift Money Transfer</h1>
+                <p>Swift and Secure Money Transfer to any bank account will become a breeze with Huc Merchant Online.
+                </p>
+
+                <!-- Feature tiles -->
+                <div class="login-features">
+                    <div class="login-feature">
+                        <div class="login-feature-icon"><i class="bi bi-shield-fill-check" aria-hidden="true"></i></div>
+                        <span>Secure Transfers</span>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon"><i class="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+                        </div>
+                        <span>Lightning Fast</span>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon"><i class="bi bi-globe2" aria-hidden="true"></i></div>
+                        <span>Global Access</span>
+                    </div>
+                    <div class="login-feature">
+                        <div class="login-feature-icon"><i class="bi bi-phone-fill" aria-hidden="true"></i></div>
+                        <span>Mobile Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Language switcher -->
+
+        </section>
+
+        <!-- ======================== RIGHT PANEL ======================== -->
+        <section class="login-right">
+            <div class="login-card-wrap">
+                <div class="login-card">
+
+                    <!-- Eyebrow badge -->
+
+                    <h3>Sign In to allianstonebk Limited Online</h3>
+                    <p class="login-subtext">Access your merchant panel using your username and password.</p>
+
+                    <form method="post" action="/" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username -->
+                        <div class="login-field">
+                            <label for="id_username">Username</label>
+                            <div class="login-input-wrap">
+                                <i class="bi bi-person" aria-hidden="true"></i>
+                                <input type="text" id="id_username" name="username" placeholder="Enter your username"
+                                    autocomplete="username" required />
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="login-field">
+                            <div class="login-field-row">
+                                <label for="id_password">Password</label>
+                                <a href="#" class="login-forgot">Forgot Password?</a>
+                            </div>
+                            <div class="login-input-wrap">
+                                <i class="bi bi-lock" aria-hidden="true"></i>
+                                <input type="password" id="id_password" name="password"
+                                    placeholder="Enter your password" autocomplete="current-password" required />
+                                <button type="button" class="login-toggle-pw" aria-label="Toggle password visibility">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Remember me -->
+                        <div class="login-remember">
+                            <input type="checkbox" id="staySignedIn" name="remember" checked />
+                            <label for="staySignedIn">Stay signed in for 30 days</label>
+                        </div>
+
+                        <!-- Sign in -->
+                        <button type="submit" class="login-submit">
+                            <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+                            Sign In
+                        </button>
+
+                        <!-- Divider -->
+                        <div class="login-divider">or</div>
+
+                        <!-- Create account -->
+                        <a href="#" class="login-create">
+                            <i class="bi bi-person-plus" aria-hidden="true"></i>
+                            Not enrolled? Create Account
+                        </a>
+                    </form>
+                </div>
+
+                <p class="login-terms">
+                    By signing in, you agree to our
+                    <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Password toggle
+        document.querySelector('.login-toggle-pw').addEventListener('click', function () {
+            const inp = document.getElementById('id_password');
+            const icon = this.querySelector('i');
+            const show = inp.type === 'password';
+            inp.type = show ? 'text' : 'password';
+            icon.className = show ? 'bi bi-eye-slash' : 'bi bi-eye';
+            this.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+
+        // Language switcher
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        const langChevron = document.getElementById('langChevron');
+
+        function setLangOpen(open) {
+            langDropdown.classList.toggle('open', open);
+            langChevron.className = open ? 'bi bi-chevron-down' : 'bi bi-chevron-up';
+            langBtn.setAttribute('aria-expanded', String(open));
+        }
+
+        langBtn.addEventListener('click', () => setLangOpen(!langDropdown.classList.contains('open')));
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('langSwitcher').contains(e.target)) setLangOpen(false);
+        });
+
+        function getCookie(name) {
+            const m = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return m ? m[2] : null;
+        }
+
+        (function applyLang() {
+            const gt = getCookie('googtrans');
+            if (!gt) return;
+            const lang = gt.split('/').pop();
+            const opt = document.querySelector('.lang-option[data-lang="' + lang + '"]');
+            if (opt) {
+                document.getElementById('activeFlagImg').src = 'https://flagcdn.com/w20/' + opt.dataset.flag + '.png';
+                document.getElementById('activeLangLabel').textContent = opt.dataset.label;
+            }
+        })();
+
+        document.querySelectorAll('.lang-option').forEach(function (opt) {
+            opt.addEventListener('click', function () {
+                const { lang, flag, label } = this.dataset;
+                document.getElementById('activeFlagImg').src = 'https://flagcdn.com/w20/' + flag + '.png';
+                document.getElementById('activeLangLabel').textContent = label;
+                setLangOpen(false);
+                const exp = new Date(Date.now() + 365 * 864e5).toUTCString();
+                document.cookie = 'googtrans=/en/' + lang + ';expires=' + exp + ';path=/';
+                document.cookie = 'googtrans=/en/' + lang + ';expires=' + exp + ';path=/;domain=.' + location.hostname;
+                location.reload();
+            });
+        });
+    </script>
+</body>
+
+</html>

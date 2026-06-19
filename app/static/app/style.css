@@ -1,4 +1,4 @@
-     :root{
+:root{
   --topbar-height: 40px;   /* flexible baseline */
   --navbar-min-height: 56px; /* use min-height instead of fixed height */
   --accent: #D8E28C;
@@ -548,6 +548,7 @@ iframe.goog-te-banner-frame { display: none !important; }
   display: flex !important;
   align-items: center;
   gap: 20px !important;
+  padding-bottom: 20px;
 }
 .service div{
   background: #ECF0CD !important;
@@ -598,4 +599,631 @@ iframe.goog-te-banner-frame { display: none !important; }
   .service div{
     width: 100% !important;
   }
-} 
+}
+
+/* ============================
+   BENEFITS SECTION
+   ============================ */
+.benefits-wrap{
+  display: flex;
+  gap: 24px;
+  padding: 60px 40px;
+  align-items: stretch;
+}
+.benefits-card{
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.benefits-card h5{
+  font-size: 22px;
+  font-weight: 700;
+  color: #0b1f1c;
+  margin-bottom: 16px;
+  text-transform: none;
+}
+.benefits-card p{
+  color: #5b6663;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.benefits-list{
+  list-style: none;
+  margin: 0 0 28px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.benefits-list li{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #0b1f1c;
+  font-weight: 500;
+}
+.benefits-list i{
+  background: var(--accent);
+  color: #104A43;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.benefits-image{
+  width: 55%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.benefits-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media screen and (max-width: 1025px){
+  .benefits-wrap{
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  .benefits-card, .benefits-image{
+    width: 100%;
+  }
+  .benefits-image{
+    min-height: 280px;
+  }
+}
+
+/* ============================
+   EXPERTISE CARDS (01 02 03)
+   ============================ */
+.expertise{
+  display: flex !important;
+  gap: 20px;
+  padding: 0 40px 60px;
+}
+.expertise > div{
+  position: relative;
+  width: 33.33%;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 360px;
+}
+.expertise img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.expertise-num{
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  background: var(--accent);
+  color: #104A43;
+  font-weight: 700;
+  font-size: 13px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.expertise-caption{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 24px 20px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 60%, transparent 100%);
+}
+.expertise-caption h5{
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-transform: none;
+  font-style: normal;
+}
+.expertise-caption p{
+  color: #f1f1f1;
+  font-size: 14px;
+  margin: 0;
+}
+
+@media screen and (max-width: 1025px){
+  .expertise{ flex-wrap: wrap; padding: 0 20px 40px; }
+  .expertise > div{ width: 100%; min-height: 300px; }
+}
+
+/* ============================
+   OUR APPROACH (dark section)
+   ============================ */
+.approach{
+  background: var(--nav-bg);
+  position: relative;
+  padding: 70px 40px 0;
+  overflow: hidden;
+}
+.approach-top{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+.approach .kicker{
+  color: var(--accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.approach-left h1{
+  color: #fff;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.approach-right{
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 10px;
+}
+.approach-avatar{
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  background: #e7a9b3;
+  margin-top: 4px;
+}
+.approach-right p{
+  color: #d9e2df;
+  line-height: 1.7;
+  max-width: 440px;
+}
+
+/* Card grid - staggered layout */
+.approach-cards{
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 70px;
+  padding-bottom: 0;
+}
+.approach-card{
+  background: #fff;
+  border-radius: 20px;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  padding: 24px;
+}
+.approach-card-arrow{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  color: #104A43;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 18px;
+  z-index: 2;
+}
+
+/* Card 1 - illustration, tallest, pushed down most */
+.approach-card--illustration{
+  grid-column: 1;
+  margin-bottom: -90px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.approach-illustration{
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  color: #d8d8d8;
+}
+.approach-illustration .coin{
+  position: absolute;
+  font-size: 22px;
+  color: var(--accent);
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 2px;
+}
+.approach-illustration .coin-1{ top: 10%; left: 15%; }
+.approach-illustration .coin-2{ top: 35%; left: 5%; }
+.approach-illustration .coin-3{ bottom: 25%; left: 20%; }
+.approach-illustration .coin-4{ top: 15%; right: 15%; }
+.approach-tag{
+  align-self: flex-start;
+  background: var(--accent);
+  color: #104A43;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-top: 16px;
+}
+
+/* Card 2 - text only, no shadow card feel, sits lower */
+.approach-card--text{
+  grid-column: 2;
+  align-self: end;
+  margin-bottom: -10px;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+}
+.approach-card--text p{
+  font-weight: 700;
+  font-size: 18px;
+  color: #0b1f1c;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Card 3 - banking / secured badge, mid height */
+.approach-card--banking{
+  grid-column: 3;
+  align-self: end;
+  margin-bottom: -50px;
+  min-height: 200px;
+}
+.approach-card-eyebrow{
+  color: #8a948f;
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+.approach-card--banking h5{
+  color: #0b1f1c;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-transform: none;
+}
+.approach-badge{
+  background: var(--accent);
+  color: #104A43;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.approach-badge small{
+  font-weight: 500;
+  font-size: 12px;
+}
+
+/* Card 4 - photo, tallest, pushed down the most to anchor bottom */
+.approach-card--photo{
+  grid-column: 4;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: -130px;
+  min-height: 320px;
+}
+.approach-card--photo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 320px;
+}
+
+/* Wavy background line decoration */
+.approach::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(120deg, transparent, transparent 38px, rgba(255,255,255,0.04) 38px, rgba(255,255,255,0.04) 39px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 1025px){
+  .approach-top{
+    grid-template-columns: 1fr;
+  }
+  .approach-cards{
+    grid-template-columns: 1fr 1fr;
+    margin-top: 40px;
+    gap: 20px;
+  }
+  .approach-card--illustration{ grid-column: 1; margin-bottom: 0; }
+  .approach-card--text{ grid-column: 2; margin-bottom: 0; align-self: stretch; }
+  .approach-card--banking{ grid-column: 1; margin-bottom: 0; }
+  .approach-card--photo{ grid-column: 2; margin-bottom: 0; min-height: 240px; }
+  .approach-card--photo img{ min-height: 240px; }
+}
+
+@media screen and (max-width: 600px){
+  .approach{ padding: 50px 20px 0; }
+  .approach-cards{
+    grid-template-columns: 1fr;
+  }
+  .approach-card--illustration,
+  .approach-card--text,
+  .approach-card--banking,
+  .approach-card--photo{
+    grid-column: 1;
+  }
+}
+
+/* Bottom padding for the section since cards now overflow naturally */
+.approach{ padding-bottom: 70px; }
+@media screen and (max-width: 1025px){
+  .approach{ padding-bottom: 50px; }
+}
+
+/* ============================
+   STATS GRID
+   ============================ */
+.stats{
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 80px 40px;
+  background: #fff;
+  position: relative;
+  z-index: 0;
+}
+.stat-box{
+  border-radius: 20px;
+  padding: 28px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.stat-box--light{
+  background: #f4f4f4;
+}
+.stat-box--accent{
+  background: var(--accent);
+}
+.stat-box p{
+  color: #0b1f1c;
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0;
+}
+.stat-box h2{
+  color: #0b1f1c;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+.stat-box:nth-child(1){ margin-top: 60px; }
+.stat-box:nth-child(4){ margin-top: 60px; }
+
+@media screen and (max-width: 1025px){
+  .stats{
+    grid-template-columns: 1fr 1fr;
+    padding: 60px 20px;
+  }
+  .stat-box:nth-child(1), .stat-box:nth-child(4){ margin-top: 0; }
+}
+@media screen and (max-width: 600px){
+  .stats{ grid-template-columns: 1fr; }
+}
+
+/* ============================
+   APP SHOWCASE
+   ============================ */
+.app-showcase{
+  background: var(--nav-bg);
+  padding: 70px 40px;
+  display: flex;
+}
+.app-phone{
+  background: var(--accent);
+  border-radius: 32px;
+  padding: 30px;
+  width: 360px;
+}
+.app-phone-frame{
+  background: #0b1f1c;
+  border-radius: 24px;
+  padding: 16px;
+}
+.app-phone-topbar{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.app-phone-icon{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--nav-bg);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.app-phone-icon--accent{
+  background: var(--accent);
+  color: #104A43;
+}
+.app-phone-card{
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.app-phone-card p{
+  color: #5b6663;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.app-phone-card h3{
+  color: #0b1f1c;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+.app-phone-row{
+  background: #f4f4f4;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.app-phone-row--accent{
+  background: var(--accent);
+}
+.app-phone-row p{
+  margin: 0;
+  font-weight: 600;
+  color: #0b1f1c;
+  font-size: 14px;
+}
+.app-phone-row span{
+  font-size: 12px;
+  color: #5b6663;
+}
+.app-phone-row strong{
+  color: #0b1f1c;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 600px){
+  .app-showcase{ padding: 50px 20px; justify-content: center; }
+  .app-phone{ width: 100%; max-width: 360px; }
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+.site-footer{
+  background: var(--nav-bg);
+  padding: 60px 40px 24px;
+}
+.footer-top{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+.footer-logo{
+  width: 140px;
+  margin-bottom: 16px;
+}
+.footer-brand p{
+  color: #c7d4d0;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 420px;
+}
+.footer-links h6, .footer-contact h6{
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.footer-links{
+  display: flex;
+  flex-direction: column;
+}
+.footer-links a{
+  color: #c7d4d0;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.footer-links a:hover{ color: var(--accent); }
+.footer-contact p{
+  color: #c7d4d0;
+  font-size: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.footer-contact i{
+  color: var(--accent);
+  margin-top: 3px;
+}
+.site-footer hr{
+  border-color: rgba(255,255,255,0.15);
+  margin: 40px 0 20px;
+}
+.footer-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom p{
+  color: #c7d4d0;
+  font-size: 14px;
+  margin: 0;
+}
+.footer-socials{
+  display: flex;
+  gap: 12px;
+}
+.footer-socials a{
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+}
+.footer-socials a:hover{
+  background: var(--accent);
+  color: #104A43;
+  border-color: var(--accent);
+}
+
+@media screen and (max-width: 1025px){
+  .footer-top{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 600px){
+  .site-footer{ padding: 50px 20px 20px; }
+  .footer-top{ grid-template-columns: 1fr; }
+  .footer-bottom{ flex-direction: column; gap: 16px; text-align: center; }
+}
+
