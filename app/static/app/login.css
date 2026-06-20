@@ -145,6 +145,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
 .login-feature {
   display: flex;
   align-items: center;
@@ -477,4 +478,12 @@
   .login-features { grid-template-columns: 1fr; }
   .login-card { padding: 28px 22px 24px; }
   .login-card h3 { font-size: 19px; }
+}
+@media screen and (max-width:500px) {
+  .login-left{
+   display: none;
+  }
+  .login-features{
+    display: none !important;
+  }
 }

@@ -71,34 +71,29 @@
                                 </a>
                                 <a href="#" role="menuitem">
                                     <i class="bi bi-briefcase" aria-hidden="true"></i>
-                                    Business loans
+                                    Business Loans
                                 </a>
                                 <a href="#" role="menuitem">
                                     <i class="bi bi-credit-card-2-front" aria-hidden="true"></i>
-                                    Credit cards
+                                    Credit Cards
                                 </a>
-
                                 <a href="#" role="menuitem">
                                     <i class="bi bi-info-circle" aria-hidden="true"></i>
                                     About Us
                                 </a>
-
                                 <a href="#" role="menuitem">
                                     <i class="bi bi-envelope" aria-hidden="true"></i>
                                     Contact Us
                                 </a>
-
                                 <div class="nav-dropdown-divider" role="separator"></div>
-
                                 <a href="#" role="menuitem">
                                     <i class="bi bi-shield-lock" aria-hidden="true"></i>
-                                    Privacy policy
+                                    Privacy Policy
                                 </a>
                                 <a href="#" role="menuitem">
                                     <i class="bi bi-file-text" aria-hidden="true"></i>
                                     Terms Of Use
                                 </a>
-
                             </div>
                         </li>
                     </ul>
@@ -177,13 +172,14 @@
                 </section>
             </div>
             <div>
-                <h1>13M+</h1>
+                <!-- data-target = final number, data-suffix = text after number -->
+                <h1 class="count-up" data-target="13" data-suffix="M+">0</h1>
                 <p class="text-white m-3">
                     The first credit card ever issued was made of cardboard and was introduced by American Express in
                     1958.
                 </p>
                 <hr>
-                <h1>0%</h1>
+                <h1 class="count-up" data-target="0" data-suffix="%">0</h1>
                 <p class="text-white m-3">
                     we believe that you should keep more of what you earn. That's why we're excited to offer a 0%
                     commission.
@@ -401,7 +397,7 @@
                     lasting success</h1>
             </div>
             <div class="approach-right">
-                <span class="approach-avatar"></span>
+
                 <p>
                     We believe that a successful financial journey starts with understanding
                     your unique needs and aspirations. Our approach is built on a foundation
@@ -414,17 +410,19 @@
             <div class="approach-card approach-card--illustration">
                 <a href="#" class="approach-card-arrow"><i class="bi bi-arrow-up-right"></i></a>
                 <div class="approach-illustration">
-                    <i class="bi bi-search"></i>
-                    <i class="bi bi-currency-dollar coin coin-1"></i>
-                    <i class="bi bi-currency-dollar coin coin-2"></i>
-                    <i class="bi bi-currency-dollar coin coin-3"></i>
-                    <i class="bi bi-currency-dollar coin coin-4"></i>
+                    <img src="{%static 'app/image/approach-image-1.png'%}" alt="">
                 </div>
-                <span class="approach-tag">Focus</span>
+                <span class="approach-tag m-4">Focus</span>
+                <h5 class="m-3">Get the real exchange rate</h5>
+                <p style="width: 100%;">
+                    We don't charge fees for spending on your card abroad, and we pass Mastercard's exchange
+                    rate directly onto you, without extra charges.
+                </p>
             </div>
 
-            <div class="approach-card approach-card--text">
-                <p>We craft customized financial strategies that fit your goals</p>
+            <div class="approach-card approach-card--text d-flex flex-column">
+                <p style="width: 100%;">We craft customized financial strategies that fit your goals</p>
+                <img src="{%static 'app/image/approach-image-2.png'%}" width="100%" alt="">
             </div>
 
             <div class="approach-card approach-card--banking">
@@ -432,61 +430,68 @@
                 <p class="approach-card-eyebrow">Stay on the KNOW</p>
                 <h5>Enroll for Online Banking</h5>
                 <span class="approach-badge">100% <small>Secured</small></span>
+                <img src="{%static 'app/image/approach-image-3.png'%}" width="100%" alt="">
             </div>
 
-            <div class="approach-card approach-card--photo">
+            <div class="approach-card">
                 <a href="#" class="approach-card-arrow"><i class="bi bi-arrow-up-right"></i></a>
-                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&auto=format&fit=crop&q=60"
-                    alt="Trusted financial partner">
+                <img src="{%static 'app/image/approach-image-4.png'%}" width="100%" alt="">
+                <h5 class="fw-bold fs-6 m-3">
+                    You gain a trusted partner committed to your financial well-being
+                </h5>
             </div>
         </div>
     </section>
+    <section class="empower">
+        <div>
+            <p>* Financial Wisdom</p>
+            <h1>Fascinating facts that shape
+                your financial knowledge</h1>
+        </div>
+        <p>
+            Explore fun and surprising facts about the financial world. Learn how history, trends, and innovations have
+            shaped today's finance landscape, making it easier to navigate your financial journey
+        </p>
+    </section>
 
+    <!-- STATS — each h2 gets count-up attributes -->
     <section class="stats">
         <div class="stat-box stat-box--light">
             <p>The number of publicly traded companies</p>
-            <h2>12k+</h2>
+            <h2 class="count-up" data-target="12" data-suffix="k+">0</h2>
         </div>
         <div class="stat-box stat-box--accent">
             <p>The percentage of financial advisors</p>
-            <h2>80%</h2>
+            <h2 class="count-up" data-target="80" data-suffix="%">0</h2>
         </div>
         <div class="stat-box stat-box--accent">
             <p>The number of credit cards in circulation</p>
-            <h2>31k+</h2>
+            <h2 class="count-up" data-target="31" data-suffix="k+">0</h2>
         </div>
         <div class="stat-box stat-box--light">
             <p>The proportion of Americans who believe that financial literacy matters</p>
-            <h2>90%</h2>
+            <h2 class="count-up" data-target="90" data-suffix="%">0</h2>
         </div>
     </section>
 
     <section class="app-showcase">
-        <div class="app-phone">
-            <div class="app-phone-frame">
-                <div class="app-phone-topbar">
-                    <span class="app-phone-icon"><i class="bi bi-person-fill"></i></span>
-                    <span class="app-phone-icon app-phone-icon--accent"><i class="bi bi-bell-fill"></i></span>
-                </div>
-                <div class="app-phone-card">
-                    <p>Net Income</p>
-                    <h3>48,572</h3>
-                </div>
-                <div class="app-phone-row">
-                    <div>
-                        <p>Send to friends</p>
-                        <span>24/Nov/2023</span>
-                    </div>
-                    <strong>$9,22</strong>
-                </div>
-                <div class="app-phone-row app-phone-row--accent">
-                    <div>
-                        <p>Send to friends</p>
-                        <span>24/Nov/2023</span>
-                    </div>
-                    <strong>$9,22</strong>
-                </div>
-            </div>
+        <img src="{%static 'app/image/cta-box-image.jpg'%}" alt="">
+        <div>
+            <p class="faith"><i class="bi bi-asterisk"></i>FDIC-Insured - Backed by the full faith and credit of the
+                U.S. Government
+            </p>
+            <h1 class="text-white fw-bold">
+                Take control of your financial
+                future today!
+            </h1>
+            <p>
+                We’ve made it easy for GreenTop Bank employees to harness their creativity, bring their ideas to life,
+                and solve customer and colleague problems.
+            </p>
+            <section>
+                <a href="">get started today</a>
+                <a href="">explore our services</a>
+            </section>
         </div>
     </section>
 
@@ -571,9 +576,11 @@
 
             var isMobile = function () { return window.innerWidth < 992; };
             var closeTimer = null;
-            var CLOSE_DELAY = 150; // milliseconds
+            var CLOSE_DELAY = 120;
 
-            // Desktop: open on hover, but with a small delay to avoid flicker
+            /* Desktop: open on mouseenter, close with short delay on mouseleave
+               The delay lets the cursor travel from the trigger into the dropdown
+               without it disappearing. */
             item.addEventListener('mouseenter', function () {
                 if (isMobile()) return;
                 clearTimeout(closeTimer);
@@ -583,33 +590,34 @@
 
             item.addEventListener('mouseleave', function () {
                 if (isMobile()) return;
-                clearTimeout(closeTimer);
                 closeTimer = setTimeout(function () {
                     item.classList.remove('open');
                     toggle.setAttribute('aria-expanded', 'false');
                 }, CLOSE_DELAY);
             });
 
-            // Mobile: click to toggle
+            /* Mobile: click toggles */
             toggle.addEventListener('click', function (e) {
                 e.preventDefault();
-                if (!isMobile()) return; // desktop handled by hover above
+                if (!isMobile()) return;
                 var isOpen = item.classList.contains('open');
                 item.classList.toggle('open', !isOpen);
                 toggle.setAttribute('aria-expanded', String(!isOpen));
             });
 
-            // Close when clicking outside (works for both desktop and mobile)
+            /* Close when clicking completely outside */
             document.addEventListener('click', function (e) {
                 if (!e.target.closest('#seftonItem')) {
+                    clearTimeout(closeTimer);
                     item.classList.remove('open');
                     toggle.setAttribute('aria-expanded', 'false');
                 }
             });
 
-            // Keyboard: Escape closes and returns focus
+            /* Escape key */
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
+                    clearTimeout(closeTimer);
                     item.classList.remove('open');
                     toggle.setAttribute('aria-expanded', 'false');
                     toggle.focus();
@@ -621,20 +629,16 @@
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
 
-        langBtn.addEventListener('click', () => {
-            langDropdown.classList.toggle('open');
-        });
+        langBtn.addEventListener('click', () => langDropdown.classList.toggle('open'));
         document.addEventListener('click', (e) => {
-            if (!document.getElementById('langSwitcher').contains(e.target)) {
+            if (!document.getElementById('langSwitcher').contains(e.target))
                 langDropdown.classList.remove('open');
-            }
         });
 
         function getCookie(name) {
             const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
             return match ? match[2] : null;
         }
-
         function applyCurrentLang() {
             const googtrans = getCookie('googtrans');
             if (!googtrans) return;
@@ -649,9 +653,7 @@
 
         document.querySelectorAll('.lang-option').forEach(option => {
             option.addEventListener('click', () => {
-                const lang = option.dataset.lang;
-                const flag = option.dataset.flag;
-                const label = option.dataset.label;
+                const { lang, flag, label } = option.dataset;
                 document.getElementById('activeFlagImg').src = `https://flagcdn.com/w20/${flag}.png`;
                 document.getElementById('activeLangLabel').textContent = label;
                 langDropdown.classList.remove('open');
@@ -661,6 +663,57 @@
                 location.reload();
             });
         });
+
+        /* ══════════════════════════════════════════
+           COUNT-UP ANIMATION
+           Triggers when the element scrolls into view.
+           Add  class="count-up"  data-target="90"  data-suffix="%"
+           to any element you want animated.
+           ══════════════════════════════════════════ */
+        (function () {
+            var DURATION = 2000; /* ms — total animation time */
+
+            /* Easing: ease-out quad */
+            function easeOut(t) { return t * (2 - t); }
+
+            function animateCounter(el) {
+                var target = parseFloat(el.dataset.target) || 0;
+                var suffix = el.dataset.suffix || '';
+                var start = null;
+
+                /* If target is 0, just set immediately and stop */
+                if (target === 0) { el.textContent = '0' + suffix; return; }
+
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    var elapsed = timestamp - start;
+                    var progress = Math.min(elapsed / DURATION, 1);
+                    var eased = easeOut(progress);
+                    var current = Math.floor(eased * target);
+                    el.textContent = current + suffix;
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        el.textContent = target + suffix; /* snap to exact final value */
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            /* Use IntersectionObserver so it fires when element enters viewport */
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target); /* only run once */
+                    }
+                });
+            }, { threshold: 0.3 }); /* start when 30% of element is visible */
+
+            document.querySelectorAll('.count-up').forEach(function (el) {
+                observer.observe(el);
+            });
+        })();
     </script>
 </body>
 
