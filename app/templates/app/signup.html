@@ -1,0 +1,292 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>allianstonebk Limited</title>
+    <link rel="stylesheet" href="{% static 'app/signup.css'%}
+    ">
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon" />
+    <script src="{ %
+         static 'app/signup.js'%
+    }"></script>
+
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- LEFT PANEL -->
+        <aside class="side-panel">
+            <a href="#" class="brand">
+                <span class="brand-mark">V</span>
+                <span class="brand-name">Vaultline</span>
+            </a>
+
+            <div class="side-content">
+                <h1>Start Banking with Us</h1>
+                <p class="side-lead">Create your Vaultline account in just a few steps and enjoy our full range of
+                    banking services.</p>
+
+                <ul class="feature-list">
+                    <li>
+                        <span class="feature-icon">&#128274;</span>
+                        <div>
+                            <strong>Secure Banking Platform</strong>
+                            <p>Industry-leading security protocols to keep your funds safe</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">&#9889;</span>
+                        <div>
+                            <strong>Fast Transfers</strong>
+                            <p>Send and receive money quickly to anyone, anywhere</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">&#128241;</span>
+                        <div>
+                            <strong>24/7 Account Access</strong>
+                            <p>Manage your finances anytime, anywhere on any device</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <p class="side-footer">&copy; 2026 Vaultline. All rights reserved.</p>
+        </aside>
+
+        <!-- RIGHT PANEL: FORM -->
+        <main class="form-panel">
+            <div class="form-wrap">
+
+                <a href="#" class="brand mobile-only">
+                    <span class="brand-mark">V</span>
+                    <span class="brand-name">Vaultline</span>
+                </a>
+
+                <h2 class="form-title">Create Your Account</h2>
+                <p class="step-indicator">Step <span id="stepCurrent">1</span> of <span id="stepTotal">4</span></p>
+
+                <!-- Progress bar -->
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <!-- Step labels -->
+                <ol class="step-labels" id="stepLabels">
+                    <li class="step-label active" data-step="1">
+                        <span class="step-dot">1</span>
+                        <span class="step-text">Personal Info</span>
+                    </li>
+                    <li class="step-label" data-step="2">
+                        <span class="step-dot">2</span>
+                        <span class="step-text">Contact Details</span>
+                    </li>
+                    <li class="step-label" data-step="3">
+                        <span class="step-dot">3</span>
+                        <span class="step-text">Account Setup</span>
+                    </li>
+                    <li class="step-label" data-step="4">
+                        <span class="step-dot">4</span>
+                        <span class="step-text">Security</span>
+                    </li>
+                </ol>
+
+                <form id="registerForm" novalidate>
+
+                    <!-- STEP 1: PERSONAL INFO -->
+                    <section class="step active" data-step="1">
+                        <h3>Personal Information</h3>
+                        <p class="step-help">Please provide your legal name as it appears on official documents</p>
+
+                        <div class="field">
+                            <label for="firstName">Legal First Name <span class="req">*</span></label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                            <span class="field-error" data-error-for="firstName"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" id="middleName" name="middleName" placeholder="Optional">
+                        </div>
+
+                        <div class="field">
+                            <label for="lastName">Legal Last Name <span class="req">*</span></label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                            <span class="field-error" data-error-for="lastName"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="username">Username <span class="req">*</span></label>
+                            <input type="text" id="username" name="username" placeholder="johndoe92" required>
+                            <span class="field-error" data-error-for="username"></span>
+                        </div>
+                    </section>
+
+                    <!-- STEP 2: CONTACT DETAILS -->
+                    <section class="step" data-step="2">
+                        <h3>Contact Information</h3>
+                        <p class="step-help">We'll use these details to communicate with you about your account</p>
+
+                        <div class="field">
+                            <label for="email">Email Address <span class="req">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                            <span class="field-error" data-error-for="email"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">Phone Number <span class="req">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900" required>
+                            <span class="field-error" data-error-for="phone"></span>
+                        </div>
+
+                        <div class="field">
+                            <label for="country">Country <span class="req">*</span></label>
+                            <select id="country" name="country" required>
+                                <option value="">Select your country</option>
+                            </select>
+                            <span class="field-error" data-error-for="country"></span>
+                        </div>
+                    </section>
+
+                    <!-- STEP 3: ACCOUNT SETUP -->
+                    <section class="step" data-step="3">
+                        <h3>Account Setup</h3>
+                        <p class="step-help">Choose your account type and set up your transaction PIN</p>
+
+                        <div class="field">
+                            <label>Account Type <span class="req">*</span></label>
+                            <div class="account-types" id="accountTypes">
+                                <label class="account-card selected" data-value="checking">
+                                    <input type="radio" name="accountType" value="checking" checked>
+                                    <span class="account-icon">&#128179;</span>
+                                    <strong>Checking Account</strong>
+                                    <p>Perfect for daily transactions and bill payments</p>
+                                </label>
+                                <label class="account-card" data-value="savings">
+                                    <input type="radio" name="accountType" value="savings">
+                                    <span class="account-icon">&#128176;</span>
+                                    <strong>Savings Account</strong>
+                                    <p>Earn interest on your deposits</p>
+                                </label>
+                                <label class="account-card hidden-type" data-value="business">
+                                    <input type="radio" name="accountType" value="business">
+                                    <span class="account-icon">&#127970;</span>
+                                    <strong>Business Account</strong>
+                                    <p>Built for invoicing, payroll, and growing teams</p>
+                                </label>
+                                <label class="account-card hidden-type" data-value="student">
+                                    <input type="radio" name="accountType" value="student">
+                                    <span class="account-icon">&#127891;</span>
+                                    <strong>Student Account</strong>
+                                    <p>No monthly fees while you're enrolled</p>
+                                </label>
+                            </div>
+                            <button type="button" class="show-more-btn" id="showMoreTypes">Show more account
+                                types</button>
+                        </div>
+
+                        <div class="field">
+                            <label for="currency">Select Currency <span class="req">*</span></label>
+                            <select id="currency" name="currency" required>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (&euro;)</option>
+                                <option value="GBP">GBP (&pound;)</option>
+                                <option value="JPY">JPY (&yen;)</option>
+                                <option value="CNY">CNY (&yen;)</option>
+                                <option value="NGN">NGN (&#8358;)</option>
+                                <option value="CAD">CAD ($)</option>
+                                <option value="AUD">AUD ($)</option>
+                                <option value="INR">INR (&#8377;)</option>
+                                <option value="ZAR">ZAR (R)</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="pin">Transaction PIN (4 digits) <span class="req">*</span></label>
+                            <input type="password" id="pin" name="pin" inputmode="numeric" maxlength="4"
+                                placeholder="••••" required>
+                            <p class="field-hint">Your PIN will be required to authorize transactions</p>
+                            <span class="field-error" data-error-for="pin"></span>
+                        </div>
+                    </section>
+
+                    <!-- STEP 4: SECURITY -->
+                    <section class="step" data-step="4">
+                        <h3>Secure Your Account</h3>
+                        <p class="step-help">Create a strong password to protect your account</p>
+
+                        <div class="field">
+                            <label for="password">Password <span class="req">*</span></label>
+                            <input type="password" id="password" name="password" placeholder="Create a password"
+                                required>
+                        </div>
+
+                        <div class="strength-meter">
+                            <span class="strength-label">Password strength: <strong id="strengthText">Too
+                                    weak</strong></span>
+                            <div class="strength-track">
+                                <div class="strength-segment" data-seg="1"></div>
+                                <div class="strength-segment" data-seg="2"></div>
+                                <div class="strength-segment" data-seg="3"></div>
+                                <div class="strength-segment" data-seg="4"></div>
+                            </div>
+                            <ul class="strength-rules">
+                                <li data-rule="length"><span class="rule-icon">&#9675;</span> At least 8 characters</li>
+                                <li data-rule="upper"><span class="rule-icon">&#9675;</span> At least one uppercase
+                                    letter</li>
+                                <li data-rule="number"><span class="rule-icon">&#9675;</span> At least one number</li>
+                                <li data-rule="special"><span class="rule-icon">&#9675;</span> At least one special
+                                    character</li>
+                            </ul>
+                        </div>
+
+                        <div class="field">
+                            <label for="confirmPassword">Confirm Password <span class="req">*</span></label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                placeholder="Repeat your password" required>
+                            <span class="match-msg" id="matchMsg"></span>
+                        </div>
+
+                        <label class="checkbox-field">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                            <span>I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#"
+                                    target="_blank">Privacy Policy</a></span>
+                        </label>
+                        <span class="field-error" data-error-for="agreeTerms"></span>
+                    </section>
+
+                    <!-- NAV BUTTONS -->
+                    <div class="form-nav">
+                        <button type="button" id="prevBtn" class="btn btn-ghost" disabled>Previous</button>
+                        <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary hidden">Create Account</button>
+                    </div>
+                </form>
+
+                <p class="signin-link">Already have an account? <a href="
+                    /login
+                    ">Sign in instead</a></p>
+            </div>
+        </main>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-icon">&#10003;</div>
+            <h3>Account Created!</h3>
+            <p>Your Vaultline account has been created successfully. You can now sign in.</p>
+            <button class="btn btn-primary" id="modalCloseBtn">Continue</button>
+        </div>
+    </div>
+
+    <script src="countries.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
