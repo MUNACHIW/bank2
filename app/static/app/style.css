@@ -14,6 +14,7 @@
   text-transform: capitalize;
 }
 
+
 /* Topbar */
 .topbar{
   background: var(--accent);
@@ -307,6 +308,9 @@ nav.navbar{
   .nav-dropdown-divider { background: rgba(255,255,255,0.1); }
 }
 
+.nav-item .active{
+  color: #c7d46f !important;
+}
 /* ============================
    HERO
    ============================ */
@@ -863,8 +867,12 @@ iframe.goog-te-banner-frame { display: none !important; }
   gap: 20px;
   padding: 80px 40px;
   background: #fff;
+  align-content: center;
   position: relative;
   z-index: 0;
+}
+.stats p{
+  width: 100%;
 }
 .stat-box{
   border-radius: 20px;
@@ -873,6 +881,10 @@ iframe.goog-te-banner-frame { display: none !important; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.stat-box img{
+  width: 100%;
+  border-radius: 20px;
 }
 .stat-box--light{ background: #f4f4f4; }
 .stat-box--accent{ background: var(--accent); }
@@ -997,4 +1009,324 @@ background-image: radial-gradient(#0b413aef, #3e7e77c7,#104A43), url(./image/sec
   .site-footer{ padding: 50px 20px 20px; }
   .footer-top{ grid-template-columns: 1fr; }
   .footer-bottom{ flex-direction: column; gap: 16px; text-align: center; }
+}
+
+/* ============================================================
+   ANIMATION LAYER — scroll reveals, hover states, hero motion
+   ============================================================ */
+
+/* ---------- CURSOR GLASS CIRCLE ---------- */
+.cursor-glow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0;
+
+  /* Glassmorphism: frosted blur + soft fill + visible rim + inner highlight */
+  background: rgba(255,255,255,0.08);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.12),
+    0 8px 32px rgba(0,0,0,0.12);
+
+  transition: opacity .4s ease, background .4s ease, border-color .4s ease, width .3s ease, height .3s ease;
+  will-change: transform;
+}
+.cursor-glow.is-active{
+  opacity: 1;
+}
+
+/* On light/white sections: cooler glass, dark-tinted rim so it stays visible */
+.cursor-glow.on-dark{
+  background: rgba(216,226,140,0.10);
+  border-color: rgba(216,226,140,0.5);
+  box-shadow:
+    inset 0 0 30px rgba(216,226,140,0.15),
+    0 8px 32px rgba(0,0,0,0.25);
+}
+
+/* Slight grow when hovering an interactive element, for extra tactility */
+.cursor-glow.is-hovering{
+  width: 260px;
+  height: 260px;
+}
+
+/* Hide entirely on touch devices as a CSS-level fallback */
+@media (hover: none), (pointer: coarse){
+  .cursor-glow{ display: none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .cursor-glow{ display: none; }
+}
+
+
+/* Smooth scrolling for in-page anchors */
+html{ scroll-behavior: smooth; }
+
+/* ---------- BASE REVEAL STATES ---------- */
+/* Default hidden state before JS adds .is-visible */
+[data-reveal],
+[data-reveal-item],
+[data-reveal-child]{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.16,.84,.32,1), transform .7s cubic-bezier(.16,.84,.32,1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible,
+[data-reveal-item].is-visible,
+[data-reveal-child].is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children inside a [data-reveal-stagger] container */
+[data-reveal-stagger] [data-reveal-item]{
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+/* Individual delay override for two-up layouts (benefits card/image) */
+[data-reveal-child][data-reveal-delay]{
+  transition-delay: var(--child-delay, 0ms);
+}
+
+/* Once visible, free up will-change for performance */
+.is-visible{ will-change: auto; }
+
+/* ---------- HERO ENTRANCE (loads immediately, no scroll needed) ---------- */
+.hero-enter{
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroIn .8s cubic-bezier(.16,.84,.32,1) forwards;
+}
+.hero-enter--1{ animation-delay: .1s; }
+.hero-enter--2{ animation-delay: .28s; }
+.hero-enter--3{ animation-delay: .46s; }
+@keyframes heroIn{
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* Gentle ambient float on the floating payment card */
+.animeholder .card{
+  animation: slide 4s linear infinite alternate, cardFloat 5s ease-in-out infinite;
+}
+@keyframes cardFloat{
+  0%, 100%{ box-shadow: 0 18px 40px -12px rgba(0,0,0,0.35); }
+  50%{ box-shadow: 0 28px 55px -10px rgba(0,0,0,0.45); }
+}
+
+/* ---------- NAVBAR: subtle entrance + scrolled state ---------- */
+.topbar, nav.navbar{
+  animation: navDrop .5s ease both;
+}
+nav.navbar{ animation-delay: .08s; }
+@keyframes navDrop{
+  from{ opacity: 0; transform: translateY(-12px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- HOVER MICRO-INTERACTIONS ---------- */
+
+/* Buttons */
+.auth-btn--primary,
+.linkholder a,
+.benefits-card .auth-btn--primary{
+  transition: background-color .2s ease, color .2s ease, transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
+}
+.auth-btn--primary:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(16,74,67,0.35);
+}
+.auth-btn--primary:active{ transform: translateY(0) scale(.97); }
+
+.linkholder a{
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), filter .2s ease;
+}
+.linkholder a:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* Nav links underline sweep */
+.navbar-nav .nav-link{
+  position: relative;
+}
+.navbar-nav .nav-link::after{
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 2px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+.navbar-nav .nav-link:hover::after{
+  transform: scaleX(1);
+}
+
+/* Footer socials already have hover bg; add lift */
+.footer-socials a{
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.footer-socials a:hover{ transform: translateY(-3px); }
+
+/* Footer links nudge */
+.footer-links a{
+  transition: color .2s ease, transform .2s ease, padding-left .2s ease;
+  display: inline-block;
+}
+.footer-links a:hover{
+  padding-left: 4px;
+}
+
+/* Cards: valid / service / expertise / approach / stat-box */
+.valid > div,
+.service > div,
+.benefits-card,
+.benefits-image,
+.approach-card,
+.stat-box,
+.expertise > div{
+  transition: transform .35s cubic-bezier(.16,.84,.32,1), box-shadow .35s ease;
+}
+.valid > div:hover{
+  transform: translateY(-6px);
+}
+.service > div:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -16px rgba(11,31,28,0.25);
+}
+.benefits-card:hover{
+  box-shadow: 0 20px 45px -18px rgba(11,31,28,0.18);
+}
+.benefits-image img,
+.expertise img{
+  transition: transform .5s cubic-bezier(.16,.84,.32,1);
+}
+.benefits-image:hover img{
+  transform: scale(1.05);
+}
+.expertise > div{
+  overflow: hidden;
+}
+.expertise > div:hover img{
+  transform: scale(1.08);
+}
+.expertise > div:hover{
+  transform: translateY(-6px);
+}
+.approach-card:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 28px 55px -16px rgba(0,0,0,0.35);
+}
+.stat-box:hover{
+  transform: translateY(-5px);
+}
+
+/* Approach card arrow nudge on hover */
+.approach-card-arrow{
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .2s ease;
+}
+.approach-card:hover .approach-card-arrow{
+  transform: translate(3px, -3px) rotate(8deg);
+}
+
+/* Expertise number badge pulse on card hover */
+.expertise-num{
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.expertise > div:hover .expertise-num{
+  transform: scale(1.12);
+}
+
+/* App-showcase CTA buttons */
+.app-showcase div section a{
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), filter .2s ease, box-shadow .2s ease;
+}
+.app-showcase div section a:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -10px rgba(0,0,0,0.4);
+}
+
+/* App showcase image gentle zoom on section hover */
+.app-showcase img{
+  transition: transform .6s cubic-bezier(.16,.84,.32,1);
+}
+.app-showcase:hover img{
+  transform: scale(1.02);
+}
+
+/* Login/signup top-bar text link */
+.d-flex .text-white.fs-6{
+  position: relative;
+  transition: color .2s ease;
+}
+.d-flex .text-white.fs-6::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+.d-flex .text-white.fs-6:hover::after{ transform: scaleX(1); }
+
+/* Lang switcher hover lift */
+.lang-btn{
+  transition: background .2s ease, transform .2s ease;
+}
+.lang-btn:hover{ transform: translateY(-2px); }
+
+/* Marquee items: gentle opacity pulse per item for life without distraction */
+.bankmotion__inner p{
+  transition: opacity .3s ease;
+}
+
+/* ---------- REDUCED MOTION: respect user preference ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+
+  [data-reveal],
+  [data-reveal-item],
+  [data-reveal-child]{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .hero-enter{
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .animeholder .card{
+    animation: none !important;
+  }
+  .topbar, nav.navbar{
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .auth-btn--primary:hover,
+  .linkholder a:hover,
+  .valid > div:hover,
+  .service > div:hover,
+  .expertise > div:hover,
+  .approach-card:hover,
+  .stat-box:hover,
+  .footer-socials a:hover,
+  .lang-btn:hover{
+    transform: none;
+  }
 }

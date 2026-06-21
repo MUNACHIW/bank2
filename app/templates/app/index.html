@@ -29,6 +29,8 @@
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <body>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
     <main>
         <div class="topbar">
             <img src="{% static 'app/image/icon-topbar-info.svg' %}" alt="" style="height:20px;">
@@ -52,7 +54,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-around">
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+                        <li class="nav-item active "><a class="nav-link text-white active" href="/">Home</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="#">Personal</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="#">Cooperate</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="#">Insurance</a></li>
@@ -150,7 +152,7 @@
         <div id="google_translate_element" style="display:none;"></div>
 
         <section class="hero">
-            <div>
+            <div class="hero-enter hero-enter--1">
                 <p>* Welcome to allianstone Online International Bank</p>
                 <h2>
                     Empowering your Day to Day
@@ -166,14 +168,14 @@
                     <a href="/login">Login <i class="bi bi-arrow-right"></i></a>
                 </section>
             </div>
-            <div>
+            <div class="hero-enter hero-enter--2">
                 <section class="animeholder">
                     <main class="card">
                         <img src="{%static 'app/image/payment-method-image.png'%}">
                     </main>
                 </section>
             </div>
-            <div>
+            <div class="hero-enter hero-enter--3">
                 <!-- data-target = final number, data-suffix = text after number -->
                 <h1 class="count-up" data-target="13" data-suffix="M+">0</h1>
                 <p class="text-white m-3">
@@ -237,7 +239,7 @@
         </div>
     </div>
 
-    <section class="empower">
+    <section class="empower" data-reveal>
         <div>
             <p>* About Us</p>
             <h1>Empowering businesses and
@@ -249,8 +251,8 @@
         </p>
     </section>
 
-    <section class="valid">
-        <div>
+    <section class="valid" data-reveal-stagger>
+        <div data-reveal-item>
             <i><img src="{% static 'app/image/icon-about-company-1.svg'%}" alt=""></i>
             <h5>expertise you can trust</h5>
             <p>
@@ -258,7 +260,7 @@
                 well-informed and secure.
             </p>
         </div>
-        <div>
+        <div data-reveal-item>
             <i><img src="{% static 'app/image/icon-about-company-2.svg'%}" alt=""></i>
             <h5>personalized solutions</h5>
             <p>
@@ -266,7 +268,7 @@
                 goals and aspirations.
             </p>
         </div>
-        <div>
+        <div data-reveal-item>
             <i><img src="{% static 'app/image/icon-about-company-3.svg'%}" alt=""></i>
             <h5>proven track record</h5>
             <p>Our proven track record highlights successful outcomes and client satisfaction through effective
@@ -274,12 +276,12 @@
         </div>
     </section>
 
-    <section class="container-fluid">
-        <video src="{% static 'app/image/video.mp4' %}" style="border-radius: 20px; filter: brightness(20%);" autoplay
-            width="100%" muted></video>
+    <section class="container-fluid" data-reveal>
+        <video src="{% static 'app/image/video.mp4' %}" style="border-radius: 20px; " autoplay width="100%"
+            muted></video>
     </section>
 
-    <section class="empower">
+    <section class="empower" data-reveal>
         <div>
             <p>*Our Services</p>
             <h1>Expert financial services for
@@ -292,25 +294,25 @@
         </p>
     </section>
 
-    <section class="container-fluid service">
-        <div>
+    <section class="container-fluid service" data-reveal-stagger>
+        <div data-reveal-item>
             <p>Financial Planning</p>
             <h5>Strategic Business Consulting for Growth Success</h5>
             <img src="{% static 'app/image/service-box-image-1.png' %}" alt="">
         </div>
-        <div>
+        <div data-reveal-item>
             <p>Business Consulting</p>
             <h5>Comprehensive Financial Planning for Your Future</h5>
             <img src="{% static 'app/image/service-box-image-2.png' %}" alt="">
         </div>
-        <div>
+        <div data-reveal-item>
             <p>Want To Own Your Own Home</p>
             <h5>Check Out Our Morgage Plan</h5>
             <img src="{% static 'app/image/service-box-image-3.png' %}" alt="">
         </div>
     </section>
 
-    <section class="empower" style="background:rgb(236, 235, 235)">
+    <section class="empower" style="background:rgb(236, 235, 235)" data-reveal>
         <div>
             <p>*Our Expertise</p>
             <h1>Driving innovation and success
@@ -323,8 +325,8 @@
         </p>
     </section>
 
-    <section class="benefits-wrap" style="background:rgb(236, 235, 235)">
-        <div class="benefits-card">
+    <section class="benefits-wrap" style="background:rgb(236, 235, 235)" data-reveal>
+        <div class="benefits-card" data-reveal-child data-reveal-delay="0">
             <h5>Benefits Of Our Financial:</h5>
             <p>
                 Empower your financial journey with expert advice, personalized strategies,
@@ -347,13 +349,13 @@
             </ul>
             <a href="#" class="btn auth-btn auth-btn--primary">Contact Now <i class="bi bi-arrow-right"></i></a>
         </div>
-        <div class="benefits-image">
+        <div class="benefits-image" data-reveal-child data-reveal-delay="150">
             <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&auto=format&fit=crop&q=60"
                 alt="Financial team collaborating">
         </div>
     </section>
 
-    <section class="empower">
+    <section class="empower" data-reveal>
         <div>
             <p>*Our Team</p>
             <h1>Expertise and client focused
@@ -361,8 +363,8 @@
         </div>
     </section>
 
-    <section class="container-fluid expertise">
-        <div>
+    <section class="container-fluid expertise" data-reveal-stagger>
+        <div data-reveal-item>
             <span class="expertise-num">01</span>
             <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=700&auto=format&fit=crop&q=60"
                 alt="Unparalleled Expertise">
@@ -371,7 +373,7 @@
                 <p>Our team comprises seasoned professionals with extensive experience.</p>
             </div>
         </div>
-        <div>
+        <div data-reveal-item>
             <span class="expertise-num">02</span>
             <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=700&auto=format&fit=crop&q=60"
                 alt="Cash Flow Optimization">
@@ -380,7 +382,7 @@
                 <p>Improve cash flow through structured savings, budgeting techniques.</p>
             </div>
         </div>
-        <div>
+        <div data-reveal-item>
             <span class="expertise-num">03</span>
             <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=700&auto=format&fit=crop&q=60"
                 alt="Financial Accountability">
@@ -392,7 +394,7 @@
     </section>
 
     <section class="approach">
-        <div class="approach-top">
+        <div class="approach-top" data-reveal>
             <div class="approach-left">
                 <p class="kicker"><i class="bi bi-asterisk"></i> Our Approach</p>
                 <h1>Client centric strategy for
@@ -408,8 +410,8 @@
             </div>
         </div>
 
-        <div class="approach-cards">
-            <div class="approach-card approach-card--illustration">
+        <div class="approach-cards" data-reveal-stagger>
+            <div class="approach-card approach-card--illustration" data-reveal-item>
                 <a href="#" class="approach-card-arrow"><i class="bi bi-arrow-up-right"></i></a>
                 <div class="approach-illustration">
                     <img src="{%static 'app/image/approach-image-1.png'%}" alt="">
@@ -422,12 +424,12 @@
                 </p>
             </div>
 
-            <div class="approach-card approach-card--text d-flex flex-column">
+            <div class="approach-card approach-card--text d-flex flex-column" data-reveal-item>
                 <p style="width: 100%;">We craft customized financial strategies that fit your goals</p>
                 <img src="{%static 'app/image/approach-image-2.png'%}" width="100%" alt="">
             </div>
 
-            <div class="approach-card approach-card--banking">
+            <div class="approach-card approach-card--banking" data-reveal-item>
                 <a href="#" class="approach-card-arrow"><i class="bi bi-arrow-up-right"></i></a>
                 <p class="approach-card-eyebrow">Stay on the KNOW</p>
                 <h5>Enroll for Online Banking</h5>
@@ -435,7 +437,7 @@
                 <img src="{%static 'app/image/approach-image-3.png'%}" width="100%" alt="">
             </div>
 
-            <div class="approach-card">
+            <div class="approach-card" data-reveal-item>
                 <a href="#" class="approach-card-arrow"><i class="bi bi-arrow-up-right"></i></a>
                 <img src="{%static 'app/image/approach-image-4.png'%}" width="100%" alt="">
                 <h5 class="fw-bold fs-6 m-3">
@@ -444,7 +446,7 @@
             </div>
         </div>
     </section>
-    <section class="empower">
+    <section class="empower" data-reveal>
         <div>
             <p>* Financial Wisdom</p>
             <h1>Fascinating facts that shape
@@ -457,26 +459,38 @@
     </section>
 
     <!-- STATS — each h2 gets count-up attributes -->
-    <section class="stats">
-        <div class="stat-box stat-box--light">
+    <section class="stats" data-reveal-stagger>
+        <div class="stat-box " data-reveal-item>
+            <img src="{% static 'app/image/company-wisdom-img-1.jpg' %}" alt="">
+        </div>
+        <div class="stat-box stat-box--light" data-reveal-item>
             <p>The number of publicly traded companies</p>
             <h2 class="count-up" data-target="12" data-suffix="k+">0</h2>
         </div>
-        <div class="stat-box stat-box--accent">
+        <div class="stat-box " data-reveal-item>
+            <img src="{% static 'app/image/company-wisdom-img-2.jpg' %}" alt="">
+        </div>
+        <div class="stat-box stat-box--accent" data-reveal-item>
             <p>The percentage of financial advisors</p>
             <h2 class="count-up" data-target="80" data-suffix="%">0</h2>
         </div>
-        <div class="stat-box stat-box--accent">
+        <div class="stat-box stat-box--accent" data-reveal-item>
             <p>The number of credit cards in circulation</p>
             <h2 class="count-up" data-target="31" data-suffix="k+">0</h2>
         </div>
-        <div class="stat-box stat-box--light">
+        <div class="stat-box " data-reveal-item>
+            <img src="{% static 'app/image/company-wisdom-img-3.jpg' %}" alt="">
+        </div>
+        <div class="stat-box stat-box--light" data-reveal-item>
             <p>The proportion of Americans who believe that financial literacy matters</p>
             <h2 class="count-up" data-target="90" data-suffix="%">0</h2>
         </div>
+        <div class="stat-box " data-reveal-item>
+            <img src="{% static 'app/image/company-wisdom-img-4.jpg' %}" alt="">
+        </div>
     </section>
 
-    <section class="app-showcase">
+    <section class="app-showcase" data-reveal>
         <img src="{%static 'app/image/cta-box-image.jpg'%}" alt="">
         <div>
             <p class="faith"><i class="bi bi-asterisk"></i>FDIC-Insured - Backed by the full faith and credit of the
@@ -487,7 +501,7 @@
                 future today!
             </h1>
             <p>
-                We’ve made it easy for GreenTop Bank employees to harness their creativity, bring their ideas to life,
+                We've made it easy for GreenTop Bank employees to harness their creativity, bring their ideas to life,
                 and solve customer and colleague problems.
             </p>
             <section>
@@ -499,7 +513,7 @@
         </div>
     </section>
 
-    <footer class="site-footer">
+    <footer class="site-footer" data-reveal>
         <div class="footer-top">
             <div class="footer-brand">
                 <img src="{% static 'app/image/logo.png' %}" alt="logo" class="footer-logo">
@@ -582,9 +596,6 @@
             var closeTimer = null;
             var CLOSE_DELAY = 120;
 
-            /* Desktop: open on mouseenter, close with short delay on mouseleave
-               The delay lets the cursor travel from the trigger into the dropdown
-               without it disappearing. */
             item.addEventListener('mouseenter', function () {
                 if (isMobile()) return;
                 clearTimeout(closeTimer);
@@ -600,7 +611,6 @@
                 }, CLOSE_DELAY);
             });
 
-            /* Mobile: click toggles */
             toggle.addEventListener('click', function (e) {
                 e.preventDefault();
                 if (!isMobile()) return;
@@ -609,7 +619,6 @@
                 toggle.setAttribute('aria-expanded', String(!isOpen));
             });
 
-            /* Close when clicking completely outside */
             document.addEventListener('click', function (e) {
                 if (!e.target.closest('#seftonItem')) {
                     clearTimeout(closeTimer);
@@ -618,7 +627,6 @@
                 }
             });
 
-            /* Escape key */
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     clearTimeout(closeTimer);
@@ -669,25 +677,137 @@
         });
 
         /* ══════════════════════════════════════════
-           COUNT-UP ANIMATION
-           Triggers when the element scrolls into view.
-           Add  class="count-up"  data-target="90"  data-suffix="%"
-           to any element you want animated.
+           CURSOR GLOW — large soft circle that trails the mouse
+           Desktop/mouse only (skipped on touch devices and
+           when prefers-reduced-motion is set).
            ══════════════════════════════════════════ */
         (function () {
-            var DURATION = 2000; /* ms — total animation time */
+            var glow = document.getElementById('cursorGlow');
+            if (!glow) return;
 
-            /* Easing: ease-out quad */
+            var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (isTouch || prefersReduced) {
+                glow.remove();
+                return;
+            }
+
+            var mouseX = window.innerWidth / 2;
+            var mouseY = window.innerHeight / 2;
+            var posX = mouseX;
+            var posY = mouseY;
+            var EASE = 0.12; /* lower = lazier trail, higher = snappier */
+            var visible = false;
+
+            window.addEventListener('mousemove', function (e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!visible) {
+                    glow.classList.add('is-active');
+                    visible = true;
+                }
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', function () {
+                glow.classList.remove('is-active');
+                visible = false;
+            });
+
+            /* Darken/lighten the glow depending on which section it sits over,
+               so it reads well on both the dark green and white sections */
+            var darkSections = Array.from(document.querySelectorAll(
+                'nav.navbar, .approach, .app-showcase, .site-footer'
+            ));
+
+            function updateTheme() {
+                var overDark = darkSections.some(function (sec) {
+                    var r = sec.getBoundingClientRect();
+                    return mouseY >= r.top && mouseY <= r.bottom && r.top < window.innerHeight && r.bottom > 0;
+                });
+                glow.classList.toggle('on-dark', overDark);
+            }
+
+            function tick() {
+                posX += (mouseX - posX) * EASE;
+                posY += (mouseY - posY) * EASE;
+                glow.style.transform = 'translate3d(' + posX + 'px,' + posY + 'px,0) translate(-50%,-50%)';
+                updateTheme();
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        })();
+
+        /* ══════════════════════════════════════════
+           SCROLL REVEAL
+           Add data-reveal to a section to fade/rise it in.
+           Add data-reveal-stagger to a container + data-reveal-item
+           to its children to animate them one after another.
+           Add data-reveal-child + data-reveal-delay="150" for
+           two-up layouts (e.g. benefits card vs image).
+           Respects prefers-reduced-motion (CSS also hard-disables it).
+           ══════════════════════════════════════════ */
+        (function () {
+            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var STAGGER_STEP = 90; /* ms between each child in a stagger group */
+
+            if (prefersReduced) {
+                /* Just mark everything visible immediately, no observer needed */
+                document.querySelectorAll('[data-reveal], [data-reveal-item], [data-reveal-child]')
+                    .forEach(function (el) { el.classList.add('is-visible'); });
+                return;
+            }
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+            /* Plain reveal sections */
+            document.querySelectorAll('[data-reveal]').forEach(function (el) {
+                io.observe(el);
+            });
+
+            /* Two-up children with explicit delay (benefits card/image) */
+            document.querySelectorAll('[data-reveal-child]').forEach(function (el) {
+                var delay = el.getAttribute('data-reveal-delay') || 0;
+                el.style.setProperty('--child-delay', delay + 'ms');
+                io.observe(el);
+            });
+
+            /* Stagger groups: assign incremental delay per item, observe the group */
+            document.querySelectorAll('[data-reveal-stagger]').forEach(function (group) {
+                var items = group.querySelectorAll('[data-reveal-item]');
+                items.forEach(function (item, i) {
+                    item.style.setProperty('--stagger-delay', (i * STAGGER_STEP) + 'ms');
+                });
+                io.observe(group);
+
+                /* When the group enters view, reveal its items too */
+                var groupObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        items.forEach(function (item) { item.classList.add('is-visible'); });
+                        groupObserver.unobserve(entry.target);
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                groupObserver.observe(group);
+            });
+        })();
+
+        /* ══════════════════════════════════════════
+           COUNT-UP ANIMATION
+           ══════════════════════════════════════════ */
+        (function () {
+            var DURATION = 2000;
             function easeOut(t) { return t * (2 - t); }
-
             function animateCounter(el) {
                 var target = parseFloat(el.dataset.target) || 0;
                 var suffix = el.dataset.suffix || '';
                 var start = null;
-
-                /* If target is 0, just set immediately and stop */
                 if (target === 0) { el.textContent = '0' + suffix; return; }
-
                 function step(timestamp) {
                     if (!start) start = timestamp;
                     var elapsed = timestamp - start;
@@ -698,22 +818,19 @@
                     if (progress < 1) {
                         requestAnimationFrame(step);
                     } else {
-                        el.textContent = target + suffix; /* snap to exact final value */
+                        el.textContent = target + suffix;
                     }
                 }
                 requestAnimationFrame(step);
             }
-
-            /* Use IntersectionObserver so it fires when element enters viewport */
             var observer = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
                         animateCounter(entry.target);
-                        observer.unobserve(entry.target); /* only run once */
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.3 }); /* start when 30% of element is visible */
-
+            }, { threshold: 0.3 });
             document.querySelectorAll('.count-up').forEach(function (el) {
                 observer.observe(el);
             });
