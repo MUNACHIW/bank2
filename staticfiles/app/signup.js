@@ -1,3 +1,4 @@
+import { COUNTRIES } from './countries.js';
 // script.js
 (function () {
     'use strict';
@@ -272,7 +273,6 @@
 
     /* ---------- FORM SUBMIT ---------- */
     form.addEventListener('submit', (e) => {
-        e.preventDefault();
         if (!validateStep(4)) return;
 
         // Collect all form data

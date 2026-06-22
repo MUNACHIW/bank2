@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="{% static 'app/signup.css'%}
     ">
     <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon" />
-    <script src="{ %
-         static 'app/signup.js'%
-    }"></script>
-
+    <script src="{% static 'app/signup.js' %}" type="module"></script>
 </head>
 
 <body>
@@ -71,6 +68,14 @@
                 <h2 class="form-title">Create Your Account</h2>
                 <p class="step-indicator">Step <span id="stepCurrent">1</span> of <span id="stepTotal">4</span></p>
 
+                {% if messages %}
+                <div class="message-box">
+                    {% for message in messages %}
+                    <p class="message {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
                 <!-- Progress bar -->
                 <div class="progress-track">
                     <div class="progress-fill" id="progressFill"></div>
@@ -96,8 +101,9 @@
                     </li>
                 </ol>
 
-                <form id="registerForm" novalidate>
+                <form id="registerForm" method="post" action="/signup/" novalidate>
 
+                    {% csrf_token %}
                     <!-- STEP 1: PERSONAL INFO -->
                     <section class="step active" data-step="1">
                         <h3>Personal Information</h3>
@@ -285,8 +291,7 @@
         </div>
     </div>
 
-    <script src="countries.js"></script>
-    <script src="script.js"></script>
+
 </body>
 
 </html>
