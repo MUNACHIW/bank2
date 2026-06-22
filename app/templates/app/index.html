@@ -29,6 +29,29 @@
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <body>
+    <div id="site-preloader">
+        <div class="pl-inner">
+            <div class="pl-logo-wrap">
+                <div class="pl-ring"></div>
+                <div class="pl-ring-spin"></div>
+                <div class="pl-logo-inner">
+                    <span class="pl-logo-letter">A</span>
+                </div>
+            </div>
+            <div class="pl-text">
+                <div class="pl-brand">allianstonebk</div>
+                <div class="pl-tagline">International Bank</div>
+            </div>
+            <div class="pl-bar-wrap">
+                <div class="pl-bar"></div>
+            </div>
+            <div class="pl-dots">
+                <div class="pl-dot"></div>
+                <div class="pl-dot"></div>
+                <div class="pl-dot"></div>
+            </div>
+        </div>
+    </div>
     <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
     <main>
@@ -55,10 +78,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-around">
                         <li class="nav-item active "><a class="nav-link text-white active" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Personal</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Cooperate</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Insurance</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Mortgages</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/personal">Personal</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/cooperate">Cooperate</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/insurance">Insurance</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/mortgage">Mortgages</a></li>
 
                         <!-- SEFTON SAVINGS WITH DROPDOWN -->
                         <li class="nav-item dropdown-parent" id="seftonItem">
@@ -67,32 +90,32 @@
                                 Sefton Savings <i class="bi bi-chevron-down"></i>
                             </a>
                             <div class="nav-dropdown" id="seftonDropdown" role="menu">
-                                <a href="#" role="menuitem">
+                                <a href="/savings" role="menuitem">
                                     <i class="bi bi-piggy-bank" aria-hidden="true"></i>
                                     Savings
                                 </a>
-                                <a href="#" role="menuitem">
+                                <a href="/loans" role="menuitem">
                                     <i class="bi bi-briefcase" aria-hidden="true"></i>
                                     Business Loans
                                 </a>
-                                <a href="#" role="menuitem">
+                                <a href="/card" role="menuitem">
                                     <i class="bi bi-credit-card-2-front" aria-hidden="true"></i>
                                     Credit Cards
                                 </a>
-                                <a href="#" role="menuitem">
+                                <a href="/about" role="menuitem">
                                     <i class="bi bi-info-circle" aria-hidden="true"></i>
                                     About Us
                                 </a>
-                                <a href="#" role="menuitem">
+                                <a href="/contact" role="menuitem">
                                     <i class="bi bi-envelope" aria-hidden="true"></i>
                                     Contact Us
                                 </a>
                                 <div class="nav-dropdown-divider" role="separator"></div>
-                                <a href="#" role="menuitem">
+                                <a href="/terms" role="menuitem">
                                     <i class="bi bi-shield-lock" aria-hidden="true"></i>
                                     Privacy Policy
                                 </a>
-                                <a href="#" role="menuitem">
+                                <a href="/terms" role="menuitem">
                                     <i class="bi bi-file-text" aria-hidden="true"></i>
                                     Terms Of Use
                                 </a>
@@ -143,9 +166,6 @@
                 </div>
                 <div class="lang-option" data-lang="ru" data-flag="ru" data-label="RU">
                     <img src="https://flagcdn.com/w20/ru.png" alt=""> Russian
-                </div>
-                <div class="lang-option" data-lang="ha" data-flag="ng" data-label="HA">
-                    <img src="https://flagcdn.com/w20/ng.png" alt=""> Hausa
                 </div>
             </div>
         </div>
@@ -347,7 +367,7 @@
                     <span>Business Financial Planning</span>
                 </li>
             </ul>
-            <a href="#" class="btn auth-btn auth-btn--primary">Contact Now <i class="bi bi-arrow-right"></i></a>
+            <a href="/contact" class="btn auth-btn auth-btn--primary">Contact Now <i class="bi bi-arrow-right"></i></a>
         </div>
         <div class="benefits-image" data-reveal-child data-reveal-delay="150">
             <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&auto=format&fit=crop&q=60"
@@ -528,21 +548,21 @@
             </div>
             <div class="footer-links">
                 <h6>Solutions</h6>
-                <a href="#">Quick Account Opening</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Terms Of Service</a>
+                <a href="/signup">Quick Account Opening</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/terms">Terms Of Service</a>
             </div>
             <div class="footer-links">
                 <h6>Loans &amp; Insurance</h6>
-                <a href="#">Business Loan</a>
-                <a href="#">Automobile Refinancing</a>
-                <a href="#">Mortgage Plans</a>
-                <a href="#">Core Insurance Program</a>
+                <a href="/loans">Business Loan</a>
+                <a href="/signup">Automobile Refinancing</a>
+                <a href="/mortgage">Mortgage Plans</a>
+                <a href="/insurance">Core Insurance Program</a>
             </div>
             <div class="footer-contact">
                 <h6>Contact Us</h6>
                 <p><i class="bi bi-geo-alt-fill"></i> 214 North Tryon Street, Charlotte, North Carolina, 28202</p>
-                <p><i class="bi bi-envelope-fill"></i> Helpdesk@allianstonebk.org</p>
+                <p><i class="bi bi-envelope-fill"></i> support@allianstonebkltd.com</p>
             </div>
         </div>
         <hr>
@@ -558,6 +578,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
+        /* ── Preloader ── */
+        /* ── Preloader ── */
+        document.addEventListener('DOMContentLoaded', function () {
+            var pl = document.getElementById('site-preloader');
+            if (!pl) return;
+            setTimeout(function () {
+                pl.classList.add('pl-hidden');
+                pl.addEventListener('transitionend', function () { pl.remove(); }, { once: true });
+            }, 400);
+        });
         /* ── Navbar hamburger ── */
         document.addEventListener('DOMContentLoaded', function () {
             const toggler = document.querySelector('.navbar-toggler');
@@ -835,6 +866,8 @@
                 observer.observe(el);
             });
         })();
+
+
     </script>
 </body>
 
