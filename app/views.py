@@ -32,3 +32,5 @@ def savings(request):
     return render(request, "app/savings.html")
 def busloans(request):
     return render(request, "app/business.html")
+def about(request):
+    return render(request, 'app/about.html')

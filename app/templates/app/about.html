@@ -1,0 +1,1572 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'app/style.css' %}" />
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <title>About
+        — allianstonebk Limited</title>
+
+    <style>
+        :root {
+            --accent: #D8E28C;
+            --nav-bg: #104A43;
+        }
+
+        /* ── PRELOADER ── */
+        #site-preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #104A43;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #site-preloader::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(120deg, transparent, transparent 38px, rgba(255, 255, 255, 0.03) 38px, rgba(255, 255, 255, 0.03) 39px);
+            pointer-events: none;
+        }
+
+        #site-preloader.pl-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .pl-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pl-logo-wrap {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pl-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2.5px solid rgba(199, 212, 111, 0.18);
+        }
+
+        .pl-ring-spin {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2.5px solid transparent;
+            border-top-color: #c7d46f;
+            border-right-color: #c7d46f;
+            animation: plSpin 1.1s cubic-bezier(0.6, 0.1, 0.4, 0.9) infinite;
+        }
+
+        .pl-logo-inner {
+            width: 54px;
+            height: 54px;
+            background: rgba(199, 212, 111, 0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(199, 212, 111, 0.25);
+        }
+
+        .pl-logo-letter {
+            font-size: 22px;
+            font-weight: 700;
+            color: #c7d46f;
+        }
+
+        .pl-text {
+            text-align: center;
+        }
+
+        .pl-brand {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .pl-tagline {
+            font-size: 12px;
+            color: rgba(199, 212, 111, 0.75);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .pl-bar-wrap {
+            width: 160px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .pl-bar {
+            height: 100%;
+            background: #c7d46f;
+            border-radius: 99px;
+            animation: plBar 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        .pl-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: -8px;
+        }
+
+        .pl-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(199, 212, 111, 0.4);
+            animation: plDot 1.4s ease-in-out infinite;
+        }
+
+        .pl-dot:nth-child(2) {
+            animation-delay: 0.18s;
+        }
+
+        .pl-dot:nth-child(3) {
+            animation-delay: 0.36s;
+        }
+
+        @keyframes plSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes plBar {
+            0% {
+                width: 0%;
+                opacity: 1;
+            }
+
+            70% {
+                width: 100%;
+                opacity: 1;
+            }
+
+            90% {
+                width: 100%;
+                opacity: 0;
+            }
+
+            100% {
+                width: 0%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes plDot {
+
+            0%,
+            80%,
+            100% {
+                background: rgba(199, 212, 111, 0.3);
+                transform: scale(1);
+            }
+
+            40% {
+                background: #c7d46f;
+                transform: scale(1.4);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .pl-ring-spin,
+            .pl-bar,
+            .pl-dot {
+                animation: none;
+            }
+
+            .pl-bar {
+                width: 60%;
+            }
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            background: var(--accent);
+            color: #000;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 6px 12px;
+            position: relative;
+            z-index: 1100;
+        }
+
+        /* ── NAVBAR ── */
+        nav.navbar {
+            background: transparent !important;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 56px;
+            padding: 6px 12px;
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        nav.navbar.scrolled {
+            background: var(--nav-bg) !important;
+            position: fixed;
+            top: 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand img {
+            width: 100px;
+            height: auto;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            margin: 0 8px;
+            font-size: 16px;
+            padding: 8px 6px;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            bottom: 2px;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .25s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent) !important;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .navbar-toggler {
+            border: none !important;
+            padding: 6px !important;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none !important;
+        }
+
+        .toggler-icon {
+            width: 28px;
+            height: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .toggler-icon .bar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #fff;
+            transition: transform .25s ease, opacity .2s ease;
+        }
+
+        .toggler-icon .bar:nth-child(1) {
+            top: 0;
+        }
+
+        .toggler-icon .bar:nth-child(2) {
+            top: 9px;
+        }
+
+        .toggler-icon .bar:nth-child(3) {
+            top: 18px;
+        }
+
+        .navbar-toggler.open .toggler-icon .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .navbar-toggler.open .toggler-icon .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .navbar-toggler.open .toggler-icon .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .auth-btn--primary {
+            background-color: var(--accent) !important;
+            color: #000 !important;
+            border: none !important;
+            padding: 8px 14px !important;
+            font-weight: 600;
+            border-radius: 20px !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background .2s ease, transform .2s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .auth-btn--primary:hover {
+            background-color: #c7d46f !important;
+            transform: translateY(-2px);
+        }
+
+        .d-flex .text-white.fs-6 {
+            margin-right: 1rem;
+            color: #fff !important;
+            text-decoration: none;
+            align-self: center;
+        }
+
+        /* Sefton dropdown */
+        .nav-item.dropdown-parent {
+            position: relative;
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: #fff;
+            border-radius: 14px;
+            padding: 8px;
+            min-width: 220px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .nav-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-left: 1px solid rgba(0, 0, 0, 0.06);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nav-item.dropdown-parent:hover .nav-dropdown,
+        .nav-item.dropdown-parent.open .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .nav-link .bi-chevron-down {
+            display: inline-block;
+            font-size: 11px;
+            margin-left: 3px;
+            vertical-align: middle;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item.dropdown-parent:hover .bi-chevron-down,
+        .nav-item.dropdown-parent.open .bi-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 9px;
+            color: #0b1f1c;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background .15s, color .15s;
+        }
+
+        .nav-dropdown a:hover {
+            background: #f0f7f5;
+            color: #104A43;
+        }
+
+        .nav-dropdown a i {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #ecf5f0;
+            color: #104A43;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: background .15s;
+        }
+
+        .nav-dropdown a:hover i {
+            background: #d8e28c;
+        }
+
+        .nav-dropdown-divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 6px 8px;
+        }
+
+        @media (min-width: 992px) {
+            .navbar-toggler {
+                display: none !important;
+            }
+
+            .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .navbar-nav {
+                flex-direction: row !important;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                padding-top: 8px;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .navbar .d-flex {
+                width: 100%;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-dropdown {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                padding: 0 0 0 16px;
+                background: transparent;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 1;
+                visibility: hidden;
+                transition: max-height 0.3s ease, visibility 0.3s;
+                pointer-events: none;
+            }
+
+            .nav-dropdown::before {
+                display: none;
+            }
+
+            .nav-item.dropdown-parent:hover .nav-dropdown {
+                max-height: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+
+            .nav-item.dropdown-parent.open .nav-dropdown {
+                visibility: visible;
+                max-height: 400px;
+                pointer-events: auto;
+                transform: none;
+                opacity: 1;
+            }
+
+            .nav-dropdown a {
+                color: #d9e2df;
+            }
+
+            .nav-dropdown a:hover {
+                background: rgba(255, 255, 255, 0.08);
+                color: #d8e28c;
+            }
+
+            .nav-dropdown a i {
+                background: rgba(255, 255, 255, 0.1);
+                color: #d8e28c;
+            }
+        }
+
+        /* ── HERO ── */
+        .corp-hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(10, 40, 36, 0.78) 0%,
+                    rgba(10, 40, 36, 0.60) 50%,
+                    rgba(10, 40, 36, 0.82) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 160px 24px 80px;
+            max-width: 820px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(199, 212, 111, 0.15);
+            border: 1px solid rgba(199, 212, 111, 0.35);
+            color: #c7d46f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 99px;
+            margin-bottom: 36px;
+            animation: heroIn 0.8s cubic-bezier(.16, .84, .32, 1) 0.1s both;
+        }
+
+        .hero-headline {
+            font-size: clamp(38px, 6vw, 68px);
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.12;
+            letter-spacing: -1px;
+            margin-bottom: 28px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            animation: heroIn 0.8s cubic-bezier(.16, .84, .32, 1) 0.25s both;
+        }
+
+        .hero-headline span {
+            color: #c7d46f;
+        }
+
+        .hero-sub {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.82);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 44px;
+            animation: heroIn 0.8s cubic-bezier(.16, .84, .32, 1) 0.4s both;
+        }
+
+        .hero-cta {
+            animation: heroIn 0.8s cubic-bezier(.16, .84, .32, 1) 0.55s both;
+        }
+
+        .hero-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #c7d46f;
+            color: #0b1f1c;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 36px;
+            border-radius: 99px;
+            transition: transform 0.2s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .hero-cta a:hover {
+            background: #d8e28c;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px -12px rgba(199, 212, 111, 0.45);
+        }
+
+        .hero-cta a:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.6;
+            animation: heroIn 1s cubic-bezier(.16, .84, .32, 1) 1s both;
+        }
+
+        .hero-scroll span {
+            font-size: 11px;
+            color: #fff;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, #c7d46f, transparent);
+            animation: scrollPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scaleY(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1.15);
+            }
+        }
+
+        @keyframes heroIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 140px 20px 70px;
+            }
+
+            .hero-headline {
+                letter-spacing: -0.5px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .hero-eyebrow,
+            .hero-headline,
+            .hero-sub,
+            .hero-cta,
+            .hero-scroll {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+
+            .scroll-line {
+                animation: none;
+            }
+        }
+
+        .nav-dropdown .active {
+            color: #c7d46f !important;
+        }
+
+        .hero-content p {
+            width: 100%;
+        }
+
+        .about-overview,
+        .story-section,
+        .why-us,
+        .community-section {
+            padding: 100px 20px;
+        }
+
+        .mission-vision {
+            padding: 80px 20px;
+            background: #104A43;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 850px;
+            margin: auto;
+            margin-bottom: 70px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: #D8E28C;
+            color: #104A43;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 48px;
+            color: #104A43;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .section-heading p {
+            color: #66706d;
+            line-height: 1.9;
+            width: 100%;
+        }
+
+        .overview-grid,
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .overview-card,
+        .why-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+        }
+
+        .overview-card i,
+        .why-card i {
+            font-size: 40px;
+            color: #104A43;
+        }
+
+        .overview-card h4,
+        .why-card h4 {
+            margin: 20px 0 10px;
+            color: #104A43;
+            width: 100%;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .story-text h2 {
+            font-size: 44px;
+            color: #104A43;
+            margin: 20px 0;
+        }
+
+        .story-text p {
+            color: #66706d;
+            line-height: 1.9;
+            width: 100%;
+        }
+
+        .story-highlight {
+            background: #104A43;
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+        }
+
+        .story-highlight ul {
+            padding-left: 20px;
+        }
+
+        .story-highlight li {
+            margin-bottom: 12px;
+        }
+
+        .mv-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .mv-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .mv-card i {
+            font-size: 42px;
+            color: #104A43;
+        }
+
+        .mv-card h3 {
+            margin: 20px 0;
+        }
+
+        .bank-stats {
+            background: #104A43;
+            padding: 90px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-box h2 {
+            color: #D8E28C;
+            font-size: 56px;
+            font-weight: 700;
+        }
+
+        @media(max-width:992px) {
+
+            .overview-grid,
+            .why-grid,
+            .mv-grid,
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .overview-grid,
+            .why-grid,
+            .mv-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2,
+            .story-text h2 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            { pageLanguage: 'en', autoDisplay: false },
+            'google_translate_element'
+        );
+    }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<body>
+
+    <!-- PRELOADER -->
+    <div id="site-preloader">
+        <div class="pl-inner">
+            <div class="pl-logo-wrap">
+                <div class="pl-ring"></div>
+                <div class="pl-ring-spin"></div>
+                <div class="pl-logo-inner">
+                    <span class="pl-logo-letter">A</span>
+                </div>
+            </div>
+            <div class="pl-text">
+                <div class="pl-brand">allianstonebk</div>
+                <div class="pl-tagline">International Bank</div>
+            </div>
+            <div class="pl-bar-wrap">
+                <div class="pl-bar"></div>
+            </div>
+            <div class="pl-dots">
+                <div class="pl-dot"></div>
+                <div class="pl-dot"></div>
+                <div class="pl-dot"></div>
+            </div>
+        </div>
+    </div>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <img src="{% static 'app/image/icon-topbar-info.svg' %}" alt="" style="height:20px;">
+        <span>World class service from your true international community bank</span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg w-100" id="mainNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'app/image/logo.png' %}" alt="logo" />
+            </a>
+
+            <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="toggler-icon" aria-hidden="true">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-around">
+                    <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/personal">Personal</a></li>
+                    <li class="nav-item active"><a class="nav-link text-white " href="/cooperate">Cooperate</a></li>
+                    <li class="nav-item "><a class="nav-link text-white " href="/insurance">Insurance</a></li>
+                    <li class="nav-item"><a class="nav-link text-white " href="/mortgage">Mortgages</a></li>
+                    <li class="nav-item dropdown-parent" id="seftonItem">
+                        <a class="nav-link text-white" href="#" id="seftonToggle" aria-haspopup="true"
+                            aria-expanded="false">
+                            Sefton Savings <i class="bi bi-chevron-down"></i>
+                        </a>
+                        <div class="nav-dropdown" id="seftonDropdown" role="menu">
+                            <a href="/savings" role="menuitem"><i class="bi bi-piggy-bank"
+                                    aria-hidden="true"></i>Savings</a>
+                            <a href="/loans" role="menuitem"><i class="bi bi-briefcase" aria-hidden="true"></i>Business
+                                Loans</a>
+                            <a href="/card" role="menuitem"><i class="bi bi-credit-card-2-front"
+                                    aria-hidden="true"></i>Credit Cards</a>
+                            <a href="/about" class="active" role="menuitem"><i class="bi bi-info-circle"
+                                    aria-hidden="true"></i>About
+                                Us</a>
+                            <a href="/contact" role="menuitem"><i class="bi bi-envelope" aria-hidden="true"></i>Contact
+                                Us</a>
+                            <div class="nav-dropdown-divider" role="separator"></div>
+                            <a href="/terms" role="menuitem"><i class="bi bi-shield-lock "
+                                    aria-hidden="true"></i>Privacy
+                                Policy</a>
+                            <a href="/terms" role="menuitem"><i class="bi bi-file-text" aria-hidden="true"></i>Terms Of
+                                Use</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/login" class="text-white fs-6">Login</a>
+                    <a href="/signup" class="btn auth-btn auth-btn--primary fs-6">Open An Account <i
+                            class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="corp-hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="{% static 'app/image/video3.mp4' %}" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+
+            <h1 class="hero-headline">
+                About allianstonebk<span>Online Savings</span>
+            </h1>
+
+            <p class="hero-sub">
+                Sefton International Bank has been supporting the businesses in our communities for almost 30 years with
+                a wide range of loans. Our dedicated lending staff and quick turnaround times will help you achieve your
+                short and long-term goals.
+
+                Enrol
+            </p>
+
+            <div class="hero-cta">
+                <a href="/signup">
+                    Enrol Now <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+    <!-- ABOUT INTRO -->
+    <section class="about-overview">
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="section-badge">Who We Are</span>
+                <h2>Your Trusted Partner In Modern Banking</h2>
+
+                <p>
+                    Allianstonebk Limited is a customer-focused financial institution committed to delivering
+                    dependable banking solutions, innovative financial products, and exceptional customer service.
+                    We provide individuals, families, entrepreneurs, and businesses with the tools, expertise,
+                    and support they need to achieve financial success in an ever-changing world.
+                </p>
+            </div>
+
+            <div class="overview-grid">
+
+                <div class="overview-card">
+                    <i class="bi bi-bank"></i>
+                    <h4>Personal Banking</h4>
+                    <p style="width: 100%;">
+                        Flexible checking and savings accounts, secure digital banking,
+                        and personalized financial solutions designed around your goals.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <i class="bi bi-briefcase-fill"></i>
+                    <h4>Business Banking</h4>
+                    <p style="width: 100%;">
+                        Comprehensive business accounts, commercial lending,
+                        treasury management, and cash flow solutions.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <i class="bi bi-house-door-fill"></i>
+                    <h4>Mortgage Solutions</h4>
+                    <p style="width: 100%;">
+                        Competitive mortgage products and refinancing options
+                        designed to help customers achieve homeownership.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- STORY -->
+    <section class="story-section">
+        <div class="container">
+
+            <div class="story-content">
+
+                <div class="story-text">
+                    <span class="section-badge">Our Story</span>
+
+                    <h2>Built On Trust, Service & Financial Excellence</h2>
+
+                    <p>
+                        Since our inception, Allianstonebk Limited has been dedicated to providing
+                        customers with secure, reliable, and innovative banking services.
+                        Our foundation is built upon integrity, transparency, and long-term relationships.
+                    </p>
+
+                    <p>
+                        We believe banking should be more than transactions. It should be a partnership.
+                        That is why we strive to understand each customer's financial goals and provide
+                        personalized solutions that help them build wealth, protect assets, and secure
+                        their future.
+                    </p>
+
+                    <p>
+                        Through continuous innovation and unwavering commitment to customer service,
+                        we remain focused on creating a banking experience that combines modern
+                        technology with personalized attention.
+                    </p>
+                </div>
+
+                <div class="story-highlight">
+                    <h3>Our Commitment</h3>
+
+                    <ul>
+                        <li>Deliver exceptional customer experiences.</li>
+                        <li>Promote financial growth and stability.</li>
+                        <li>Maintain the highest standards of security.</li>
+                        <li>Support individuals, families and businesses.</li>
+                        <li>Drive innovation through digital banking solutions.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- MISSION -->
+    <section class="mission-vision">
+
+        <div class="container">
+
+            <div class="mv-grid">
+
+                <div class="mv-card">
+                    <i class="bi bi-bullseye"></i>
+                    <h3>Our Mission</h3>
+
+                    <p style="width: 100%;">
+                        To provide accessible, innovative and secure financial
+                        services that empower customers to achieve their personal
+                        and business financial goals.
+                    </p>
+                </div>
+
+                <div class="mv-card">
+                    <i class="bi bi-eye-fill"></i>
+                    <h3>Our Vision</h3>
+
+                    <p style="width: 100%;">
+                        To be recognized as a leading financial institution
+                        known for trust, innovation, customer satisfaction,
+                        and long-term financial partnerships.
+                    </p>
+                </div>
+
+                <div class="mv-card">
+                    <i class="bi bi-award-fill"></i>
+                    <h3>Our Values</h3>
+
+                    <p style="width: 100%;">
+                        Integrity, transparency, accountability, innovation,
+                        excellence, and commitment to every customer we serve.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WHY CHOOSE US -->
+    <section class="why-us">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="section-badge">Why Choose Us</span>
+
+                <h2>Banking Designed Around You</h2>
+            </div>
+
+            <div class="why-grid">
+
+                <div class="why-card">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    <h4>Secure Banking</h4>
+                    <p style="width: 100%;">
+                        Industry-leading security measures help protect
+                        customer accounts, transactions, and personal information.
+                    </p>
+                </div>
+
+                <div class="why-card">
+                    <i class="bi bi-phone-fill"></i>
+                    <h4>Digital Convenience</h4>
+                    <p style="width: 100%;">
+                        Access your accounts anytime through our secure
+                        online and mobile banking platforms.
+                    </p>
+                </div>
+
+                <div class="why-card">
+                    <i class="bi bi-currency-dollar"></i>
+                    <h4>Flexible Financing</h4>
+                    <p style="width: 100%;">
+                        Lending solutions tailored to meet personal,
+                        commercial and investment needs.
+                    </p>
+                </div>
+
+                <div class="why-card">
+                    <i class="bi bi-headset"></i>
+                    <h4>Dedicated Support</h4>
+                    <p style="width: 100%;">
+                        Our experienced banking professionals are
+                        always ready to assist and guide customers.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+
+    <!-- COMMUNITY -->
+    <section class="community-section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <span class="section-badge">Community Commitment</span>
+
+                <h2>Supporting The Communities We Serve</h2>
+
+                <p>
+                    We believe strong communities create strong economies.
+                    Through responsible banking, financial education,
+                    business support, and community engagement,
+                    we strive to make a positive and lasting impact.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="loans">
+        <div>
+
+            <section>
+                <h4>Business Loans</h4>
+                <p>
+                    We use soft credit searching when you apply for a loan with us, this doesn’t leave a negative mark
+                    on your credit file if you are unsuccessful.
+                </p>
+                <a href="/login" class="bi bi-arrow-right"></a>
+            </section>
+        </div>
+        <div>
+            <section>
+                <h4>Car Loans</h4>
+                <p>
+                    Do you need help getting back on the road? We might be able to help.
+                </p>
+                <a href="/login" class="bi bi-arrow-right"></a>
+            </section>
+        </div>
+        <div>
+            <section>
+                <h4>Debt Consolidation</h4>
+                <p>
+                    Consolidating your debts can make keeping on top of your monthly payments much simpler. Even if
+                    you’ve had bad credit in the past, you can apply for a loan with us to see if we can help you.
+                </p>
+                <a href="/login" class="bi bi-arrow-right"></a>
+            </section>
+        </div>
+        <div>
+            <section>
+                <h4>Home Improvement</h4>
+                <p>
+                    If you are looking to finance improvements to your home, apply with us today. Even if you have
+                    struggled with bad credit, we may be able to help.
+                </p>
+                <a href="/login" class="bi bi-arrow-right"></a>
+            </section>
+        </div>
+        <div>
+            <section>
+                <h4>Bad Credit</h4>
+                <p>
+                    A few bumps in your credit history, such as missed repayments on credit cards, personal loans, or
+                    mortgages or even just a lack of general credit history, can make it harder to obtain loans and
+                    other credit facilities
+                </p>
+                <a href="/login" class="bi bi-arrow-right"></a>
+            </section>
+        </div>
+        <div>
+            <section>
+                <h4>Long Term Loan</h4>
+                <p>
+                    We are a direct lender specialising in helping those with less-than-perfect credit. You could borrow
+                    up to $15,000 from 18 months to 5 years. Contact us to see if we can help.
+                </p>
+                <a href="/login" class="bi bi-arrow-right"></a>
+            </section>
+        </div>
+    </section>
+
+
+
+
+    <footer class="site-footer" data-reveal>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="{% static 'app/image/logo.png' %}" alt="logo" class="footer-logo">
+                <p>
+                    Our objective is to be a primary contributing member of the diverse communities of
+                    Uptown, Chinatown, Des Plaines, Port Jervis (NY), Stone Park, Wilmette and their
+                    neighboring communities. Our goal is to serve their consumer, commercial and retail
+                    needs while serving all ethnic backgrounds. By offering a varied staff of officers and
+                    employees we strive to provide services in related languages in a friendly, efficient
+                    and personal manner. Soundness, service and integrity are paramount.
+                </p>
+            </div>
+            <div class="footer-links">
+                <h6>Solutions</h6>
+                <a href="/signup">Quick Account Opening</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/terms">Terms Of Service</a>
+            </div>
+            <div class="footer-links">
+                <h6>Loans &amp; Insurance</h6>
+                <a href="/loans">Business Loan</a>
+                <a href="/signup">Automobile Refinancing</a>
+                <a href="/mortgage">Mortgage Plans</a>
+                <a href="/insurance">Core Insurance Program</a>
+            </div>
+            <div class="footer-contact">
+                <h6>Contact Us</h6>
+                <p><i class="bi bi-geo-alt-fill"></i> 214 North Tryon Street, Charlotte, North Carolina, 28202</p>
+                <p><i class="bi bi-envelope-fill"></i> Helpdesk@allianstonebk.org</p>
+            </div>
+        </div>
+        <hr>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2025 All Rights Reserved.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        /* ── Preloader ── */
+        document.addEventListener('DOMContentLoaded', function () {
+            var pl = document.getElementById('site-preloader');
+            if (!pl) return;
+            setTimeout(function () {
+                pl.classList.add('pl-hidden');
+                pl.addEventListener('transitionend', function () { pl.remove(); }, { once: true });
+            }, 400);
+        });
+
+        /* ── Navbar: transparent → solid on scroll ── */
+        (function () {
+            var nav = document.getElementById('mainNav');
+            if (!nav) return;
+            function onScroll() {
+                nav.classList.toggle('scrolled', window.scrollY > 60);
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
+
+        /* ── Navbar hamburger ── */
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggler = document.querySelector('.navbar-toggler');
+            var collapseEl = document.getElementById('navbarNav');
+            if (!toggler || !collapseEl) return;
+            var bsCollapse = new bootstrap.Collapse(collapseEl, { toggle: false });
+            toggler.addEventListener('click', function () {
+                var isOpen = toggler.classList.contains('open');
+                if (isOpen) {
+                    toggler.classList.remove('open');
+                    toggler.setAttribute('aria-expanded', 'false');
+                    bsCollapse.hide();
+                } else {
+                    toggler.classList.add('open');
+                    toggler.setAttribute('aria-expanded', 'true');
+                    bsCollapse.show();
+                }
+            });
+            collapseEl.addEventListener('hidden.bs.collapse', function () { toggler.classList.remove('open'); toggler.setAttribute('aria-expanded', 'false'); });
+            collapseEl.addEventListener('shown.bs.collapse', function () { toggler.classList.add('open'); toggler.setAttribute('aria-expanded', 'true'); });
+        });
+
+        /* ── Sefton Savings dropdown ── */
+        (function () {
+            var item = document.getElementById('seftonItem');
+            var toggle = document.getElementById('seftonToggle');
+            if (!item || !toggle) return;
+            var isMobile = function () { return window.innerWidth < 992; };
+            var closeTimer = null;
+            item.addEventListener('mouseenter', function () { if (isMobile()) return; clearTimeout(closeTimer); item.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); });
+            item.addEventListener('mouseleave', function () { if (isMobile()) return; closeTimer = setTimeout(function () { item.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }, 120); });
+            toggle.addEventListener('click', function (e) { e.preventDefault(); if (!isMobile()) return; var isOpen = item.classList.contains('open'); item.classList.toggle('open', !isOpen); toggle.setAttribute('aria-expanded', String(!isOpen)); });
+            document.addEventListener('click', function (e) { if (!e.target.closest('#seftonItem')) { clearTimeout(closeTimer); item.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); } });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { clearTimeout(closeTimer); item.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); toggle.focus(); } });
+        })();
+        (function () {
+            var glow = document.getElementById('cursorGlow');
+            if (!glow) return;
+
+            var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (isTouch || prefersReduced) {
+                glow.remove();
+                return;
+            }
+
+            var mouseX = window.innerWidth / 2;
+            var mouseY = window.innerHeight / 2;
+            var posX = mouseX;
+            var posY = mouseY;
+            var EASE = 0.12; /* lower = lazier trail, higher = snappier */
+            var visible = false;
+
+            window.addEventListener('mousemove', function (e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!visible) {
+                    glow.classList.add('is-active');
+                    visible = true;
+                }
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', function () {
+                glow.classList.remove('is-active');
+                visible = false;
+            });
+
+            /* Darken/lighten the glow depending on which section it sits over,
+               so it reads well on both the dark green and white sections */
+            var darkSections = Array.from(document.querySelectorAll(
+                'nav.navbar, .approach, .app-showcase, .site-footer'
+            ));
+
+            function updateTheme() {
+                var overDark = darkSections.some(function (sec) {
+                    var r = sec.getBoundingClientRect();
+                    return mouseY >= r.top && mouseY <= r.bottom && r.top < window.innerHeight && r.bottom > 0;
+                });
+                glow.classList.toggle('on-dark', overDark);
+            }
+
+            function tick() {
+                posX += (mouseX - posX) * EASE;
+                posY += (mouseY - posY) * EASE;
+                glow.style.transform = 'translate3d(' + posX + 'px,' + posY + 'px,0) translate(-50%,-50%)';
+                updateTheme();
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        })();
+
+        /* ══════════════════════════════════════════
+           SCROLL REVEAL
+           Add data-reveal to a section to fade/rise it in.
+           Add data-reveal-stagger to a container + data-reveal-item
+           to its children to animate them one after another.
+           Add data-reveal-child + data-reveal-delay="150" for
+           two-up layouts (e.g. benefits card vs image).
+           Respects prefers-reduced-motion (CSS also hard-disables it).
+           ══════════════════════════════════════════ */
+        (function () {
+            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var STAGGER_STEP = 90; /* ms between each child in a stagger group */
+
+            if (prefersReduced) {
+                /* Just mark everything visible immediately, no observer needed */
+                document.querySelectorAll('[data-reveal], [data-reveal-item], [data-reveal-child]')
+                    .forEach(function (el) { el.classList.add('is-visible'); });
+                return;
+            }
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+            /* Plain reveal sections */
+            document.querySelectorAll('[data-reveal]').forEach(function (el) {
+                io.observe(el);
+            });
+
+            /* Two-up children with explicit delay (benefits card/image) */
+            document.querySelectorAll('[data-reveal-child]').forEach(function (el) {
+                var delay = el.getAttribute('data-reveal-delay') || 0;
+                el.style.setProperty('--child-delay', delay + 'ms');
+                io.observe(el);
+            });
+
+            /* Stagger groups: assign incremental delay per item, observe the group */
+            document.querySelectorAll('[data-reveal-stagger]').forEach(function (group) {
+                var items = group.querySelectorAll('[data-reveal-item]');
+                items.forEach(function (item, i) {
+                    item.style.setProperty('--stagger-delay', (i * STAGGER_STEP) + 'ms');
+                });
+                io.observe(group);
+
+                /* When the group enters view, reveal its items too */
+                var groupObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        items.forEach(function (item) { item.classList.add('is-visible'); });
+                        groupObserver.unobserve(entry.target);
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                groupObserver.observe(group);
+            });
+        })();
+    </script>
+</body>
+
+</html>
