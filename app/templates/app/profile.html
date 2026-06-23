@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/pages.css' %}">
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'app/image/logo.png' %}" alt="">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:domestic_transfer' %}" class="nav-item"><i class="fas fa-paper-plane"></i>
+                Transfer</a>
+            <a href="/dashloans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item"><i class="fas fa-wallet"></i> Deposits</a>
+
+            <a href="/profile" class="nav-item active"><i class="fas fa-user-cog"></i> Profile</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> log Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+    <div class="overlay" id="overlay"></div>
+    <div class="main" id="main">
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">profile</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <a href="{% url 'app:profile' %}" style="text-decoration:none;">
+                    <div class="avatar">
+
+                        {{ first_name|first|upper }}
+                    </div>
+                </a>
+            </div>
+        </header>
+        <div class="page">
+
+            <!-- PROFILE HEADER -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="avatar">
+                    {% else %}
+                    {{ first_name|first|upper }}
+                    {% endif %}
+                </div>
+                <div>
+                    <h1 class="profile-name">{{ full_name }}</h1>
+                    <p class="profile-username">@{{ user.username }}</p>
+                    <span class="pill pill--active">ACTIVE</span>
+                </div>
+            </div>
+
+            <!-- DETAILS GRID -->
+
+
+            <div class="pcard">
+                <div class="pcard__head">
+                    <div class="pcard__icon pcard__icon--amber"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <h2>Address</h2>
+                    </div>
+                </div>
+                <div class="profile-rows">
+                    <div class="profile-row"><span>Street</span><span>{{ profile.street|default:"—" }}</span></div>
+                    <div class="profile-row"><span>Apt / Suite</span><span>{{ profile.apt|default:"—" }}</span>
+                    </div>
+                    <div class="profile-row"><span>City</span><span>{{ profile.city|default:"—" }}</span></div>
+                    <div class="profile-row"><span>State</span><span>{{ profile.state|default:"—" }}</span></div>
+                    <div class="profile-row"><span>ZIP</span><span>{{ profile.zip|default:"—" }}</span></div>
+                    <div class="profile-row"><span>Country</span><span>{{ profile.country|default:"—" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard pcard--actions">
+                <div class="pcard__head">
+                    <div class="pcard__icon pcard__icon--red"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h2>Security</h2>
+                    </div>
+                </div>
+                <div class="profile-rows">
+                    <div class="profile-row"><span>Transaction PIN</span><span>{% if profile.has_pin %}<span
+                                class="pill pill--active">Set</span>{% else %}<span class="pill pill--pending">Not
+                                Set</span>{% endif %}</span></div>
+                    <div class="profile-row"><span>Password</span><span>••••••••</span></div>
+                </div>
+                <div class="profile-action-btns">
+                    <a href="{% url 'app:settings' %}" class="sbtn sbtn--blue"><i class="fas fa-cog"></i> Go to
+                        Settings</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="dash-footer"><span>Copyright &copy; All rights reserved.</span></footer>
+    </div>
+    <script src="{% static 'app/dashboard.js' %}"></script>
+</body>
+
+</html>

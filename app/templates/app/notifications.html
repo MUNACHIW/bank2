@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications </title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/pages.css' %}">
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'bank/images/logo.png' %}" alt="">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:domestic_transfer' %}" class="nav-item"><i class="fas fa-paper-plane"></i>
+                Transfer</a>
+            <a href="/dashloans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item"><i class="fas fa-wallet"></i> Deposits</a>
+
+            <a href="/profile" class="nav-item"><i class="fas fa-user-cog"></i> Profile</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> log Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+    <div class="overlay" id="overlay"></div>
+    <div class="main" id="main">
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">Settings</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell text-primary"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog t"></i>
+                </a>
+                <a href="{% url 'app:profile' %}" style="text-decoration:none;">
+                    <div class="avatar">
+
+                        {{ first_name|first|upper }}
+                    </div>
+                </a>
+            </div>
+        </header>
+        <div class="page">
+            <div class="pcard" style="max-width:680px; margin:0 auto;">
+                <div class="pcard__head">
+                    <div class="pcard__icon pcard__icon--blue"><i class="fas fa-bell"></i></div>
+                    <div>
+                        <h2>All Notifications</h2>
+                        <p>All notifications are marked as read when you open this page</p>
+                    </div>
+                </div>
+                {% if notifications %}
+                {% for notif in notifications %}
+                <div class="notif-item">
+                    <div class="notif-icon"><i class="fas fa-info-circle"></i></div>
+                    <div class="notif-body">
+                        <p class="notif-title">{{ notif.title }}</p>
+                        <p class="notif-msg">{{ notif.message }}</p>
+                        <p class="notif-date">{{ notif.created_at|date:"M d, Y H:i" }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="empty-row"><i class="fas fa-bell-slash"></i>
+                    <p>No notifications yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <footer class="dash-footer"><span>Copyright &copy; Wintrust Union, All rights reserved.</span><span>Wintrust
+                Union</span></footer>
+    </div>
+    <script src="{% static 'app/dashboard.js' %}"></script>
+</body>
+
+</html>

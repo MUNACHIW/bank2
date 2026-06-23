@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domestic Transfer </title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/transfer.css' %}">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'app/image/logo.png' %}" alt="">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'app:dashboard' %}" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:domestic_transfer' %}" class="nav-item active"><i class="fas fa-paper-plane"></i>
+                Transfer</a>
+            <a href="/dashloans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item"><i class="fas fa-wallet"></i> Deposits</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> log Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- MAIN -->
+    <div class="main" id="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">Domestic Transfer</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog"></i>
+                </a>
+
+            </div>
+        </header>
+
+        <div class="page">
+
+            <!-- MESSAGES -->
+            {% if messages %}
+            <div class="messages-wrap">
+                {% for message in messages %}
+                <div class="alert alert--{{ message.tags }}">
+                    <i
+                        class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- BREADCRUMB -->
+            <div class="breadcrumb">
+                <a href="{% url 'app:dashboard' %}">Dashboard</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Domestic Transfer</span>
+            </div>
+
+            <!-- TRANSFER TABS -->
+            <div class="transfer-tabs">
+                <a href="{% url 'app:wire_transfer' %}" class="transfer-tab">
+                    <i class="fas fa-globe"></i> Wire Transfer
+                </a>
+                <a href="{% url 'app:domestic_transfer' %}" class="transfer-tab active">
+                    <i class="fas fa-university"></i> Domestic Transfer
+                </a>
+            </div>
+
+            <!-- FORM CARD -->
+            <div class="form-card">
+                <div class="form-card__header">
+                    <div class="form-card__icon form-card__icon--green">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div>
+                        <h2>Domestic Bank Transfer</h2>
+                        <p>Send money instantly to any local bank account</p>
+                    </div>
+                </div>
+
+                <form method="POST" action="{% url 'app:domestic_transfer' %}">
+                    {% csrf_token %}
+
+                    <div class="form-grid">
+
+                        <!-- Amount -->
+                        <div class="form-group">
+                            <label for="amount">Amount <span class="required">*</span></label>
+                            <div class="input-wrap input-wrap--icon">
+                                <span class="input-prefix"><i class="fas fa-dollar-sign"></i></span>
+                                <input type="number" id="amount" name="amount" placeholder="0.00" step="0.01" min="1"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Beneficiary Name -->
+                        <div class="form-group">
+                            <label for="beneficiary_name">Beneficiary Account Name <span
+                                    class="required">*</span></label>
+                            <div class="input-wrap">
+                                <input type="text" id="beneficiary_name" name="beneficiary_name"
+                                    placeholder="e.g. Jane Doe" required>
+                            </div>
+                        </div>
+
+                        <!-- Beneficiary Account No -->
+                        <div class="form-group">
+                            <label for="beneficiary_account_no">Beneficiary Account No <span
+                                    class="required">*</span></label>
+                            <div class="input-wrap">
+                                <input type="text" id="beneficiary_account_no" name="beneficiary_account_no"
+                                    placeholder="e.g. 0123456789" required>
+                            </div>
+                        </div>
+
+                        <!-- Bank Name -->
+                        <div class="form-group">
+                            <label for="bank_name">Bank Name <span class="required">*</span></label>
+                            <div class="input-wrap">
+                                <input type="text" id="bank_name" name="bank_name"
+                                    placeholder="e.g. GTBank, Zenith Bank, Access Bank" required>
+                            </div>
+                        </div>
+
+                        <!-- Account Type -->
+                        <div class="form-group">
+                            <label for="account_type">Account Type</label>
+                            <div class="input-wrap input-wrap--select">
+                                <select id="account_type" name="account_type">
+                                    <option value="">-- Select Type --</option>
+                                    <option>Current Account</option>
+                                    <option>Savings Account</option>
+                                    <option>Checking Account</option>
+                                    <option>Business Account</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-arrow"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Narration full width -->
+                    <div class="form-group form-group--full">
+                        <label for="narration">Narration / Purpose</label>
+                        <div class="input-wrap">
+                            <textarea id="narration" name="narration" rows="3"
+                                placeholder="Briefly describe the purpose of this transfer..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Notice -->
+                    <div class="transfer-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Domestic transfers are reviewed before processing. Funds will be debited once
+                            approved.</span>
+                    </div>
+
+                    <div class="form-footer">
+                        <a href="{% url 'app:dashboard' %}" class="btn-cancel">Cancel</a>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Transfer
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div><!-- end .page -->
+
+        <footer class="dash-footer">
+            <span>Copyright &copy; All rights reserved.</span>
+        </footer>
+
+    </div>
+
+    <script src="{% static 'app/dashboard.js' %}"></script>
+</body>
+
+</html>

@@ -6,9 +6,16 @@ urlpatterns = [
     path(
         "", views.landing, name="landing"
     ),
-    path("login/", views.login, name="login"),
+    path("login/", views.login_view, name="login"),
     path("signup/", views.signup, name="signup"),
-    
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path('wire-transfer/',     views.wire_transfer,     name='wire_transfer'),
+     path('domestic-transfer/', views.domestic_transfer, name='domestic_transfer'),
+     path('transactions/', views.transactions, name='transactions'),
+     path('dashloans',  views.loans, name="dashloans"),
+     path('profile/',       views.profile_view,  name='profile'),
+     path('settings/',      views.settings_view, name='settings'),
+      path('notifications/', views.notifications, name='notifications'),
      path("personal/", views.personal, name="personal"),
     path("cooperate/", views.cooperate, name='cooperate'),
     path("insurance/", views.insurance, name="insurance"),
@@ -18,5 +25,12 @@ urlpatterns = [
        path("card/", views.card,name="contact" ),
         path("savings/", views.savings,name="savings" ),
         path("loans/", views.busloans, name="loans"),
-        path("about/", views.about , name="about")
+         path('deposits/',      views.deposits,      name='deposits'),
+        path("about/", views.about , name="about"),
+            path(
+        "logout/",
+        views.logout_view,
+        name="logout"
+    ),
+
 ]

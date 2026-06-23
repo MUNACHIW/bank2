@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposits</title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/pages.css' %}">
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'app/image/logo.png' %}" alt="">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:domestic_transfer' %}" class="nav-item"><i class="fas fa-paper-plane"></i>
+                Transfer</a>
+            <a href="/dashloans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item active"><i class="fas fa-wallet"></i> Deposits</a>
+            <a href="/profile" class="nav-item"><i class="fas fa-user-cog"></i> Profile</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> log Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+    <div class="overlay" id="overlay"></div>
+    <div class="main" id="main">
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">deposits</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog text-primary"></i>
+                </a>
+                <a href="{% url 'app:profile' %}" style="text-decoration:none;">
+                    <div class="avatar">
+
+                        {{ first_name|first|upper }}
+                    </div>
+                </a>
+            </div>
+        </header>
+        <div class="page">
+            {% if messages %}
+            <div class="msgs">{% for m in messages %}<div class="msg msg--{{m.tags}}"><i
+                        class="fas {% if m.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                    {{m}}</div>{% endfor %}</div>
+            {% endif %}
+
+            <div class="page-grid">
+                <!-- CREATE DEPOSIT -->
+                <div class="pcard">
+                    <div class="pcard__head">
+                        <div class="pcard__icon pcard__icon--blue"><i class="fas fa-wallet"></i></div>
+                        <div>
+                            <h2>Create Deposit</h2>
+                            <p>Start saving with DPS or Fixed Deposit</p>
+                        </div>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-grid2">
+                            <div class="fg">
+                                <label>Deposit Type <span class="req">*</span></label>
+                                <div class="iw iw--sel">
+                                    <select name="deposit_type" required>
+                                        <option value="">-- Select Type --</option>
+                                        <option value="DPS">Deposit Pension Scheme (DPS)</option>
+                                        <option value="Fixed">Fixed Deposit Receipt (FDR)</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down sel-arr"></i>
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <label>Amount <span class="req">*</span></label>
+                                <div class="iw iw--icon"><span class="ipfx"><i class="fas fa-dollar-sign"></i></span>
+                                    <input type="number" name="amount" placeholder="0.00" step="0.01" min="1" required>
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <label>Duration (Months) <span class="req">*</span></label>
+                                <div class="iw"><input type="number" name="duration_months" placeholder="e.g. 12"
+                                        min="1" max="360" required></div>
+                            </div>
+                            <div class="fg">
+                                <label>Interest Rate (%)</label>
+                                <div class="iw"><input type="number" name="interest_rate" value="5.00" step="0.01"
+                                        min="0"></div>
+                            </div>
+                        </div>
+                        <div class="notice"><i class="fas fa-info-circle"></i> Maturity date is calculated automatically
+                            from today's date.</div>
+                        <div class="form-footer">
+                            <button type="submit" class="sbtn sbtn--blue"><i class="fas fa-plus"></i> Create
+                                Deposit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- DEPOSIT HISTORY -->
+                <div class="pcard">
+                    <div class="pcard__head">
+                        <div class="pcard__icon pcard__icon--green"><i class="fas fa-history"></i></div>
+                        <div>
+                            <h2>My Deposits</h2>
+                            <p>View all active and past deposits</p>
+                        </div>
+                    </div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Rate</th>
+                                    <th>Maturity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if user_deposits %}
+                                {% for dep in user_deposits %}
+                                <tr>
+                                    <td>{{ dep.deposit_type }}</td>
+                                    <td class="credit">{{ currency_display }} {{ dep.amount }}</td>
+                                    <td>{{ dep.interest_rate }}%</td>
+                                    <td>{{ dep.maturity_date|date:"M d, Y"|default:"—" }}</td>
+                                    <td><span class="pill pill--{{ dep.status|lower }}">{{ dep.status }}</span></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" class="empty-row"><i class="fas fa-wallet"></i>
+                                        <p>No deposits yet</p>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="dash-footer"><span>Copyright &copy; All rights reserved.</span></footer>
+    </div>
+    <script src="{% static 'app/dashboard.js' %}"></script>
+</body>
+
+</html>

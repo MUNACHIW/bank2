@@ -1,0 +1,262 @@
+/* transfer.css — Wire & Domestic Transfer pages */
+
+/* BREADCRUMB */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+.breadcrumb a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb i { font-size: 0.65rem; }
+.breadcrumb span { color: var(--muted); }
+
+/* TRANSFER TABS */
+.transfer-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+.transfer-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--muted);
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    transition: all 0.2s;
+}
+.transfer-tab:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+.transfer-tab.active {
+    background: #D8E28C;
+    border-color: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 91, 230, 0.28);
+}
+
+/* FORM CARD */
+.form-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0, 91, 230, 0.06);
+    padding: 28px;
+    max-width: 860px;
+}
+
+.form-card__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+.form-card__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--blue-lt);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+.form-card__icon--green {
+    background: var(--green-lt);
+    color: var(--green);
+}
+.form-card__header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 3px;
+}
+.form-card__header p {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+/* FORM GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+    margin-bottom: 18px;
+}
+
+/* FORM GROUP */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.form-group--full {
+    margin-bottom: 18px;
+}
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+}
+.required { color: var(--red); margin-left: 2px; }
+
+/* INPUT WRAP */
+.input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+.input-wrap:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 91, 230, 0.1);
+    background: var(--white);
+}
+.input-wrap input,
+.input-wrap select,
+.input-wrap textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 11px 14px;
+    font-size: 0.875rem;
+    font-family: 'Poppins', sans-serif;
+    color: #1a202c;
+}
+.input-wrap textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+.input-wrap select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+/* Icon prefix */
+.input-wrap--icon .input-prefix {
+    padding-left: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+.input-wrap--icon input {
+    padding-left: 6px;
+}
+
+/* Select arrow */
+.input-wrap--select {
+    position: relative;
+}
+.select-arrow {
+    position: absolute;
+    right: 12px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    pointer-events: none;
+}
+
+/* NOTICE */
+.transfer-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.8rem;
+    color: #1e40af;
+    margin-bottom: 24px;
+}
+.transfer-notice i { margin-top: 1px; flex-shrink: 0; }
+
+/* FORM FOOTER */
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+.btn-cancel {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: 'Poppins', sans-serif;
+}
+.btn-cancel:hover { border-color: var(--red); color: var(--red); }
+.btn-submit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 28px;
+    border-radius: 8px;
+    background: var(--blue);
+    border: none;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 14px rgba(0, 91, 230, 0.3);
+    transition: all 0.2s;
+}
+.btn-submit:hover {
+    background:#D8E28C;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 91, 230, 0.38);
+}
+
+/* MESSAGES / ALERTS */
+.messages-wrap { margin-bottom: 18px; }
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+.alert--success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.alert--error   { background: var(--red-lt); color: #9b1c1c; border: 1px solid #fca5a5; }
+.alert--info    { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 18px; }
+    .transfer-tabs { flex-direction: column; }
+    .form-footer { flex-direction: column-reverse; }
+    .btn-cancel, .btn-submit { width: 100%; justify-content: center; }
+}

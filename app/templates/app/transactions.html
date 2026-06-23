@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/transactions.css' %}">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'app/image/logo.png' %}" alt="">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'app:dashboard' %}" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item active"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:wire_transfer' %}" class="nav-item"><i class="fas fa-paper-plane"></i> Transfer</a>
+            <a href="/dashloans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item"><i class="fas fa-wallet"></i> Deposits</a>
+
+            <a href="/profile" class="nav-item"><i class="fas fa-user-cog"></i> Profile</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- MAIN -->
+    <div class="main" id="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">Transactions</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <a href="{% url 'app:profile' %}" style="text-decoration:none;">
+                    <div class="avatar">
+                        {{ first_name|first|upper }}
+                    </div>
+                </a>
+            </div>
+        </header>
+
+        <div class="page">
+
+            <!-- BREADCRUMB -->
+            <div class="breadcrumb">
+                <a href="{% url 'app:dashboard' %}">Dashboard</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Transactions</span>
+            </div>
+
+            <!-- STATS ROW -->
+            <div class="txn-stats">
+                <div class="txn-stat-card">
+                    <div class="txn-stat-card__icon txn-stat-card__icon--blue">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                    <div>
+                        <p class="txn-stat-card__label">Total Transactions</p>
+                        <p class="txn-stat-card__value">{{ total_count }}</p>
+                    </div>
+                </div>
+                <div class="txn-stat-card">
+                    <div class="txn-stat-card__icon txn-stat-card__icon--amber">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <p class="txn-stat-card__label">Pending</p>
+                        <p class="txn-stat-card__value">{{ pending_count }}</p>
+                    </div>
+                </div>
+                <div class="txn-stat-card">
+                    <div class="txn-stat-card__icon txn-stat-card__icon--green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <p class="txn-stat-card__label">Completed</p>
+                        <p class="txn-stat-card__value">{{ completed_count }}</p>
+                    </div>
+                </div>
+                <div class="txn-stat-card">
+                    <div class="txn-stat-card__icon txn-stat-card__icon--red">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div>
+                        <p class="txn-stat-card__label">Failed</p>
+                        <p class="txn-stat-card__value">{{ failed_count }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTER BAR -->
+            <div class="filter-bar">
+                <div class="filter-tabs">
+                    <a href="?filter=all" class="filter-tab {% if active_filter == 'all' %}active{% endif %}">All</a>
+                    <a href="?filter=wire" class="filter-tab {% if active_filter == 'wire' %}active{% endif %}">Wire</a>
+                    <a href="?filter=domestic"
+                        class="filter-tab {% if active_filter == 'domestic' %}active{% endif %}">Domestic</a>
+                    <a href="?filter=pending"
+                        class="filter-tab {% if active_filter == 'pending' %}active{% endif %}">Pending</a>
+                    <a href="?filter=completed"
+                        class="filter-tab {% if active_filter == 'completed' %}active{% endif %}">Completed</a>
+                    <a href="?filter=failed"
+                        class="filter-tab {% if active_filter == 'failed' %}active{% endif %}">Failed</a>
+                </div>
+                <form method="GET" class="search-form">
+                    <input type="hidden" name="filter" value="{{ active_filter }}">
+                    <div class="search-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" name="q" value="{{ search_query }}" placeholder="Search by name, bank...">
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Beneficiary</th>
+                                <th>Bank</th>
+                                <th>Narration</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if transactions %}
+                            {% for txn in transactions %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <span class="type-badge type-badge--{{ txn.transfer_type|lower }}">
+                                        {% if txn.transfer_type == 'Wire' %}
+                                        <i class="fas fa-globe"></i> Wire
+                                        {% else %}
+                                        <i class="fas fa-university"></i> Domestic
+                                        {% endif %}
+                                    </span>
+                                </td>
+                                <td class="debit">{{ currency_display }} {{ txn.amount }}</td>
+                                <td>{{ txn.beneficiary_name }}</td>
+                                <td>{{ txn.bank_name }}</td>
+                                <td class="narration-cell">{{ txn.narration|default:"—" }}</td>
+                                <td>{{ txn.created_at|date:"M d, Y" }}</td>
+                                <td>{{ txn.created_at|time:"H:i" }}</td>
+                                <td><span class="pill pill--{{ txn.status|lower }}">{{ txn.status }}</span></td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="9" class="empty-row">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>No transactions found</p>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PAGINATION -->
+                {% if transactions.has_other_pages %}
+                <div class="pagination">
+                    {% if transactions.has_previous %}
+                    <a href="?filter={{ active_filter }}&q={{ search_query }}&page={{ transactions.previous_page_number }}"
+                        class="page-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    {% endif %}
+
+                    {% for num in transactions.paginator.page_range %}
+                    {% if transactions.number == num %}
+                    <span class="page-btn page-btn--active">{{ num }}</span>
+                    {% elif num > transactions.number|add:'-3' and num < transactions.number|add:'3' %} <a
+                        href="?filter={{ active_filter }}&q={{ search_query }}&page={{ num }}" class="page-btn">{{ num
+                        }}</a>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if transactions.has_next %}
+                        <a href="?filter={{ active_filter }}&q={{ search_query }}&page={{ transactions.next_page_number }}"
+                            class="page-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div><!-- end .page -->
+
+        <footer class="dash-footer">
+            <span>Copyright &copy; , All rights reserved.</span>
+        </footer>
+
+    </div>
+
+    <script src="{% static 'app/dashboard.js' %}"></script>
+</body>
+
+</html>

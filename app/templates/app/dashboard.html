@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="shortcut icon" href="{% static 'bank/images/logobankpng.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'app/image/logo.png' %}" alt="">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:domestic_transfer' %}" class="nav-item"><i class="fas fa-paper-plane"></i>
+                Transfer</a>
+            <a href="/dashloans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item"><i class="fas fa-wallet"></i> Deposits</a>
+            <a href="/profile" class="nav-item"><i class="fas fa-user-cog"></i> Profile</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> log Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+
+    <!-- OVERLAY (mobile) -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- MAIN -->
+    <div class="main" id="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">Dashboard</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <a href="{% url 'app:profile' %}" style="text-decoration:none;">
+                    <div class="avatar">
+                        {{ first_name|first|upper }}
+                    </div>
+                </a>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page">
+
+            <!-- GREETING -->
+            <div class="greeting">
+                <h1>Welcome back, {{ first_name }} 👋</h1>
+                <p>Here's what's happening with your account today.</p>
+            </div>
+
+            <!-- SUMMARY CARDS -->
+            <div class="cards-grid">
+                <div class="card-stat card-blue">
+                    <div class="card-stat__icon"><i class="fas fa-wallet"></i></div>
+                    <div>
+                        <p class="card-stat__label">Total Balance</p>
+                        <p class="card-stat__value">{{ currency_display }} {{ balance_display }}</p>
+                    </div>
+                </div>
+                <div class="card-stat card-green">
+                    <div class="card-stat__icon"><i class="fas fa-arrow-down"></i></div>
+                    <div>
+                        <p class="card-stat__label">Total Income</p>
+                        <p class="card-stat__value">{{ currency_display }} {{ balance_display }}</p>
+                    </div>
+                </div>
+                <div class="card-stat card-amber">
+                    <div class="card-stat__icon"><i class="fas fa-arrow-up"></i></div>
+                    <div>
+                        <p class="card-stat__label">Expenses</p>
+                        <p class="card-stat__value">{{ currency_display }} 0.00</p>
+                    </div>
+                </div>
+                <div class="card-stat card-red">
+                    <div class="card-stat__icon"><i class="fas fa-coins"></i></div>
+                    <div>
+                        <p class="card-stat__label">Loan Balance</p>
+                        <p class="card-stat__value">{{ currency_display }} 0.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MID ROW: Balance Card + Chart -->
+            <div class="mid-row">
+
+                <!-- BALANCE CARD -->
+                <div class="balance-card">
+                    <div class="balance-card__head">
+                        <div class="balance-card__user">
+                            <div class="balance-card__avatar">
+                                {{ first_name|first|upper }}
+                            </div>
+                            <div>
+                                <p class="balance-card__name">{{ full_name }}</p>
+                                <span class="pill pill--active">ACTIVE</span>
+                            </div>
+                        </div>
+                        <button class="add-btn"><i class="fas fa-plus"></i></button>
+                    </div>
+
+                    <div class="balance-card__amount">
+                        <span class="balance-card__cur">{{ currency_display }}</span>
+                        <span class="balance-card__num">{{ balance_display }}</span>
+                    </div>
+
+                    <div class="balance-tabs">
+                        <div class="balance-tab">
+                            <span>Pending</span>
+                            <strong>{{ currency_display }} 0.00</strong>
+                        </div>
+                        <div class="balance-tab">
+                            <span>My Loan</span>
+                            <strong>{{ currency_display }} 0</strong>
+                        </div>
+                    </div>
+
+                    <ul class="meta-list">
+                        <li><span>Account Limit</span><span>{{ currency_display }} {{ balance_display }}</span></li>
+                        <li><span>Recent Transaction</span><span>{{ currency_display }} {{ balance_display }}</span>
+                        </li>
+                        <li><span>Last Login Date</span><span id="loginDate">—</span></li>
+                    </ul>
+
+                    <div class="balance-actions">
+                        <a href="{% url 'app:domestic_transfer' %}" class="action-btn action-btn--ghost">Domestic
+                            Transfer</a>
+                        <a href="{% url 'app:wire_transfer' %}" class="action-btn action-btn--solid">Wire Transfer</a>
+                    </div>
+                </div>
+
+                <!-- CHART -->
+                <div class="chart-card">
+                    <div class="chart-card__head">
+                        <div>
+                            <h2>Daily Stats</h2>
+                            <p>Go to Transactions for details</p>
+                        </div>
+                        <div class="legend">
+                            <span><i class="fas fa-circle" style="color:#005BE6"></i> Wire</span>
+                            <span><i class="fas fa-circle" style="color:#f59e0b"></i> Domestic</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="statsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- TRANSACTIONS TABLE -->
+                <div class="table-wrap">
+                    <div class="table-wrap__head">
+                        <h2>Recent Credit/Debit Transactions</h2>
+                        <a href="{% url 'app:transactions' %}" class="view-all">View All</a>
+                    </div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Sender / Receiver</th>
+                                    <th>Description</th>
+                                    <th>Created At</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if transactions %}
+                                {% for txn in transactions %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td class="debit">{{ currency_display }} {{ txn.amount }}</td>
+                                    <td>Transfer</td>
+                                    <td>{{ txn.beneficiary_name }}</td>
+                                    <td>{{ txn.narration|default:"—" }}</td>
+                                    <td>{{ txn.created_at|date:"Y-m-d" }}</td>
+                                    <td>{{ txn.created_at|time:"H:i" }}</td>
+                                    <td><span class="pill pill--{{ txn.status|lower }}">{{ txn.status }}</span></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="8" class="empty-row">
+                                        <i class="fas fa-receipt"></i>
+                                        <p>No transactions yet</p>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div><!-- end .page -->
+
+            <footer class="dash-footer">
+                <span>Copyright &copy; All rights reserved.</span>
+            </footer>
+
+        </div><!-- end .main -->
+
+        <script src="{% static 'app/dashboard.js' %}"></script>
+        <script id="chartData" type="application/json">
+                            {
+                                "labels":   {{ chart_labels|safe }},
+                                "wire":     {{ chart_wire|safe }},
+                                "domestic": {{ chart_domestic|safe }}
+                            }
+    </script>
+</body>
+
+</html>
