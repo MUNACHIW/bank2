@@ -36,6 +36,8 @@ def login_view(request):
     return render(request, "app/login.html")
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect("/dashboard")
 
     if request.method == "POST":
 
