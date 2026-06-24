@@ -31,10 +31,8 @@ class UserProfileAdmin(admin.ModelAdmin):
         "country",
     )
 
-    readonly_fields = (
-        "balance",
-    )
-    list_editable = ("created_at",)
+  
+    list_editable = ( "balance", "created_at",)
     
 @admin.register(WireTransfer)
 class WireTransferAdmin(admin.ModelAdmin):
