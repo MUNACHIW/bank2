@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.functions import TruncDate
 from django.db.models import Sum, Count
 from datetime import date, timedelta
-from .models import   WireTransfer, DomesticTransfer , LoanApplication ,Deposit,  Notification
+from .models import   WireTransfer, DomesticTransfer , LoanApplication ,Deposit,  Notification, UserProfile
 from itertools import chain
 from operator import attrgetter
 from django.core.paginator import Paginator
@@ -40,21 +40,30 @@ def signup(request):
         return redirect("/dashboard")
 
     if request.method == "POST":
-
+        # Step 1 - Personal Info
         first_name = request.POST.get("firstName")
         middle_name = request.POST.get("middleName")
         last_name = request.POST.get("lastName")
         username = request.POST.get("username")
 
+        # Step 2 - Contact
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         country = request.POST.get("country")
 
+        # Step 3 - Address
+        occupation = request.POST.get("occupation")
+        street = request.POST.get("street")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        zip_code = request.POST.get("zip")
+
+        # Step 4 - Account Setup
         account_type = request.POST.get("accountType")
         currency = request.POST.get("currency")
-
         pin = request.POST.get("pin")
 
+        # Step 5 - Security
         password = request.POST.get("password")
         confirm_password = request.POST.get("confirmPassword")
 
@@ -75,30 +84,48 @@ def signup(request):
             email=email,
             password=password,
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
         )
 
-        user.middle_name = middle_name
-        user.phone = phone
-        user.country = country
-        user.account_type = account_type
-        user.currency = currency
-        user.pin = pin
-
-        user.save()
+        UserProfile.objects.create(
+            user=user,
+            middle_name=middle_name or "",
+            phone=phone or "",
+            country=country or "",
+            occupation=occupation or "",
+            street=street or "",
+            city=city or "",
+            state=state or "",
+            zip=zip_code or "",
+            account_type=account_type or "checking",
+            currency=currency or "USD",
+            pin=pin or "",
+            balance=Decimal("0.00"),
+            is_active=True,
+        )
 
         messages.success(request, "Account created successfully.")
-
         return redirect("/login")
 
     return render(request, "app/signup.html")
 
 
+from django.db.models import Sum
+from django.db.models.functions import TruncDate
+from itertools import chain
+from operator import attrgetter
+from datetime import date, timedelta
+from decimal import Decimal
+import json
+
 @login_required(login_url="app:login")
 def dashboard(request):
     profile = getattr(request.user, "profile", None)
-    initial_balance = profile.initial_balance if profile else Decimal("0.00")
 
+    # ✅ use profile.balance, not initial_balance
+    balance = profile.balance if profile else Decimal("0.00")
+
+    # Recent transfers
     wire_transfers = WireTransfer.objects.filter(user=request.user).order_by('-created_at')[:3]
     domestic_transfers = DomesticTransfer.objects.filter(user=request.user).order_by('-created_at')[:3]
 
@@ -108,12 +135,20 @@ def dashboard(request):
         reverse=True
     )[:3]
 
-    # --- Chart data: last 7 days ---
+    # Total amount sent (expenses)
+    wire_total = WireTransfer.objects.filter(user=request.user).aggregate(t=Sum('amount'))['t'] or Decimal("0.00")
+    domestic_total = DomesticTransfer.objects.filter(user=request.user).aggregate(t=Sum('amount'))['t'] or Decimal("0.00")
+    total_expenses = wire_total + domestic_total
+
+    # Most recent transaction amount
+    latest_txn = all_transfers[0] if all_transfers else None
+    latest_txn_amount = latest_txn.amount if latest_txn else Decimal("0.00")
+
+    # Chart data: last 7 days
     today = date.today()
     last_7_days = [today - timedelta(days=i) for i in range(6, -1, -1)]
-    labels = [d.strftime('%a') for d in last_7_days]  # Mon, Tue...
+    labels = [d.strftime('%a') for d in last_7_days]
 
-    # Get daily totals for wire transfers
     wire_daily = (
         WireTransfer.objects
         .filter(user=request.user, created_at__date__gte=last_7_days[0])
@@ -129,27 +164,32 @@ def dashboard(request):
         .annotate(total=Sum('amount'))
     )
 
-    # Map to dict for quick lookup
     wire_map     = {str(item['day']): float(item['total']) for item in wire_daily}
     domestic_map = {str(item['day']): float(item['total']) for item in domestic_daily}
 
-    # Build chart arrays matching last_7_days order
     chart_wire     = [wire_map.get(str(d), 0) for d in last_7_days]
     chart_domestic = [domestic_map.get(str(d), 0) for d in last_7_days]
-    chart_total    = [wire_map.get(str(d), 0) + domestic_map.get(str(d), 0) for d in last_7_days]
 
-    import json
+    # ✅ unread_notifications so the bell dot works
+    try:
+        from .models import Notification
+        unread_notifications = Notification.objects.filter(user=request.user, is_read=False).count()
+    except Exception:
+        unread_notifications = 0
+ 
     context = {
-        "profile":          profile,
-        "balance_display":  f"{initial_balance:,.2f}",
-        "currency_display": profile.currency if profile else "USD",
-        "full_name":        request.user.get_full_name() or request.user.username,
-        "first_name":       request.user.first_name or request.user.username,
-        "transactions":     all_transfers,
-        "chart_labels":     json.dumps(labels),
-        "chart_wire":       json.dumps(chart_wire),
-        "chart_domestic":   json.dumps(chart_domestic),
-        "chart_total":      json.dumps(chart_total),
+        "profile":              profile,
+        "balance_display":      f"{balance:,.2f}",
+        "expenses_display":     f"{total_expenses:,.2f}",
+        "latest_txn_display":   f"{latest_txn_amount:,.2f}",
+        "currency_display":     profile.currency if profile else "USD",
+        "full_name":            request.user.get_full_name() or request.user.username,
+        "first_name":           request.user.first_name or request.user.username,
+        "transactions":         all_transfers,
+        "unread_notifications": unread_notifications,
+        "chart_labels":         json.dumps(labels),
+        "chart_wire":           json.dumps(chart_wire),
+        "chart_domestic":       json.dumps(domestic_map),
     }
     return render(request, "app/dashboard.html", context)
 

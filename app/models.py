@@ -33,7 +33,6 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     zip = models.CharField(max_length=30, blank=True)
-    profile_image = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
     balance = models.DecimalField(max_digits=14, decimal_places=2, default=Decimal("0.00"))
     pin = models.CharField(max_length=128, blank=True, null=True)
     is_active = models.BooleanField(default=True)

@@ -94,7 +94,7 @@
                     <div class="card-stat__icon"><i class="fas fa-arrow-up"></i></div>
                     <div>
                         <p class="card-stat__label">Expenses</p>
-                        <p class="card-stat__value">{{ currency_display }} 0.00</p>
+                        <p class="card-stat__value">{{ currency_display }} {{ expenses_display }}</p>
                     </div>
                 </div>
                 <div class="card-stat card-red">
@@ -142,7 +142,7 @@
 
                     <ul class="meta-list">
                         <li><span>Account Limit</span><span>{{ currency_display }} {{ balance_display }}</span></li>
-                        <li><span>Recent Transaction</span><span>{{ currency_display }} {{ balance_display }}</span>
+                        <li><span>Recent Transaction</span><span>{{ currency_display }} {{ latest_txn_display }}</span>
                         </li>
                         <li><span>Last Login Date</span><span id="loginDate">—</span></li>
                     </ul>
