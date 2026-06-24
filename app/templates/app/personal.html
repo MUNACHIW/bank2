@@ -745,8 +745,15 @@
         }
     </style>
 </head>
-
-
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            { pageLanguage: 'en', autoDisplay: false },
+            'google_translate_element'
+        );
+    }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <body>
 
@@ -863,9 +870,53 @@
                 </a>
             </div>
         </div>
-
-
     </section>
+
+    <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn">
+            <img src="https://flagcdn.com/w20/us.png" alt="EN" id="activeFlagImg">
+            <span id="activeLangLabel">EN</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+            <div class="lang-option" data-lang="en" data-flag="us" data-label="EN">
+                <img src="https://flagcdn.com/w20/us.png" alt=""> English
+            </div>
+            <div class="lang-option" data-lang="fr" data-flag="fr" data-label="FR">
+                <img src="https://flagcdn.com/w20/fr.png" alt=""> French
+            </div>
+            <div class="lang-option" data-lang="es" data-flag="es" data-label="ES">
+                <img src="https://flagcdn.com/w20/es.png" alt=""> Spanish
+            </div>
+            <div class="lang-option" data-lang="de" data-flag="de" data-label="DE">
+                <img src="https://flagcdn.com/w20/de.png" alt=""> German
+            </div>
+            <div class="lang-option" data-lang="it" data-flag="it" data-label="IT">
+                <img src="https://flagcdn.com/w20/it.png" alt=""> Italian
+            </div>
+            <div class="lang-option" data-lang="pt" data-flag="pt" data-label="PT">
+                <img src="https://flagcdn.com/w20/pt.png" alt=""> Portuguese
+            </div>
+            <div class="lang-option" data-lang="ar" data-flag="sa" data-label="AR">
+                <img src="https://flagcdn.com/w20/sa.png" alt=""> Arabic
+            </div>
+            <div class="lang-option" data-lang="zh-CN" data-flag="cn" data-label="ZH">
+                <img src="https://flagcdn.com/w20/cn.png" alt=""> Chinese
+            </div>
+            <div class="lang-option" data-lang="ru" data-flag="ru" data-label="RU">
+                <img src="https://flagcdn.com/w20/ru.png" alt=""> Russian
+            </div>
+            <div class="lang-option" data-lang="tr" data-flag="tr" data-label="TR">
+                <img src="https://flagcdn.com/w20/tr.png" alt=""> Turkish
+            </div>
+            <div class="lang-option" data-lang="th" data-flag="th" data-label="TH">
+                <img src="https://flagcdn.com/w20/th.png" alt=""> Thai
+            </div>
+
+        </div>
+    </div>
+    <div id="google_translate_element" style="display:none;"></div>
+
     <section class="empower" style="background:rgb(236, 235, 235)" data-reveal>
         <div>
             <p>*Our Expertise</p>
@@ -1200,6 +1251,47 @@
                 groupObserver.observe(group);
             });
         })();
+
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+
+        langBtn.addEventListener('click', () => langDropdown.classList.toggle('open'));
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('langSwitcher').contains(e.target))
+                langDropdown.classList.remove('open');
+        });
+
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;
+        }
+        function applyCurrentLang() {
+            const googtrans = getCookie('googtrans');
+            if (!googtrans) return;
+            const lang = googtrans.split('/').pop();
+            const option = document.querySelector(`.lang-option[data-lang="${lang}"]`);
+            if (option) {
+                document.getElementById('activeFlagImg').src = `https://flagcdn.com/w20/${option.dataset.flag}.png`;
+                document.getElementById('activeLangLabel').textContent = option.dataset.label;
+            }
+        }
+        applyCurrentLang();
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const { lang, flag, label } = option.dataset;
+                document.getElementById('activeFlagImg').src = `https://flagcdn.com/w20/${flag}.png`;
+                document.getElementById('activeLangLabel').textContent = label;
+                langDropdown.classList.remove('open');
+                const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+                document.cookie = `googtrans=/en/${lang};expires=${expires};path=/`;
+                document.cookie = `googtrans=/en/${lang};expires=${expires};path=/;domain=.${location.hostname}`;
+                location.reload();
+            });
+        });
+
+
+
 
 
         /* ══════════════════════════════════════════

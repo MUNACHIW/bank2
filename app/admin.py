@@ -32,9 +32,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
-        "created_at",
         "balance",
     )
+    list_editable = ("created_at",)
     
 @admin.register(WireTransfer)
 class WireTransferAdmin(admin.ModelAdmin):
@@ -42,8 +42,8 @@ class WireTransferAdmin(admin.ModelAdmin):
     search_fields = ("user__username", "beneficiary_name", "bank_name", "swift_code")
     list_filter = ("status", "country", "created_at")
     ordering = ("-created_at",)
-    list_editable = ("status",)
-    readonly_fields = ("created_at",)
+    list_editable = ("status", "created_at")
+  
 
 
 @admin.register(DomesticTransfer)
@@ -52,8 +52,7 @@ class DomesticTransferAdmin(admin.ModelAdmin):
     search_fields = ("user__username", "beneficiary_name", "bank_name")
     list_filter = ("status", "created_at")
     ordering = ("-created_at",)
-    list_editable = ("status",)
-    readonly_fields = ("created_at",)
+    list_editable = ("status", "created_at")
     
     
 
@@ -70,6 +69,7 @@ class DepositAdmin(admin.ModelAdmin):
     list_filter   = ('deposit_type', 'status', 'created_at')
     search_fields = ('user__username',)
     ordering      = ('-created_at',)
+    list_editable = ("created_at",)
     
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):

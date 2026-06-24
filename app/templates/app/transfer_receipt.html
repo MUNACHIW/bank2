@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Receipt</title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/receipt.css' %}">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="{% static 'app/image/logo.png' %}" alt="Wintrust Union">
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'app:dashboard' %}" class="nav-item"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a href="{% url 'app:transactions' %}" class="nav-item"><i class="fas fa-exchange-alt"></i>
+                Transactions</a>
+            <a href="{% url 'app:wire_transfer' %}" class="nav-item active"><i class="fas fa-paper-plane"></i>
+                Transfer</a>
+            <a href="/loans" class="nav-item"><i class="fas fa-coins"></i> Loans</a>
+            <a href="/deposits" class="nav-item"><i class="fas fa-wallet"></i> Deposits</a>
+
+            <a href="/profile" class="nav-item"><i class="fas fa-user-cog"></i> Profile</a>
+            <div class="sidebar-footer">
+                <a href="{% url 'app:logout' %}" class="nav-item signout">
+                    <i class="fas fa-sign-out-alt"></i> log Out
+                </a>
+            </div>
+        </nav>
+
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="main" id="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            <span class="topbar-title">Transfer Receipt</span>
+            <div class="topbar-right">
+                <a href="{% url 'app:notifications' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-bell"></i>
+                    {% if unread_notifications > 0 %}<span class="dot"></span>{% endif %}
+                </a>
+                <a href="{% url 'app:settings' %}" class="icon-btn" style="text-decoration:none;">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <a href="{% url 'app:profile' %}" style="text-decoration:none;">
+                    <div class="avatar">
+
+                        {{ first_name|first|upper }}
+                    </div>
+                </a>
+            </div>
+        </header>
+
+        <div class="page">
+
+            <!-- RECEIPT CARD — this is what gets printed -->
+            <div class="receipt-wrap" id="receiptCard">
+
+                <!-- BANK HEADER (visible on print) -->
+                <div class="receipt-bank-header">
+                    <img src="{% static 'app/images/logo.png' %}" alt="" class="receipt-logo">
+                    <div>
+                        <h2 class="receipt-bank-name"> allianstonebk</h2>
+                        <p class="receipt-bank-sub">Secure. Smart. Seamless.</p>
+                    </div>
+                </div>
+
+                <!-- SUCCESS HEADING -->
+                <div class="receipt-heading">
+                    <div class="receipt-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h1>Transfer is been processed</h1>
+                    <p class="receipt-subtext">
+                        Dear <strong>{{ first_name }}</strong>, your transfer to
+                        <strong>{{ transfer.beneficiary_name }}</strong> is been processed
+                    </p>
+                </div>
+
+                <!-- PROGRESS BAR -->
+                <div class="receipt-progress">
+                    <div class="receipt-progress__bar"></div>
+                    <span>100%</span>
+                </div>
+
+                <!-- RECEIPT DETAILS TABLE -->
+                <div class="receipt-details">
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">AMOUNT</span>
+                        <span class="receipt-row__value">{{ currency_display }} {{ transfer.amount }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">REFERENCE ID</span>
+                        <span class="receipt-row__value receipt-row__value--mono">{{ reference_id }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">BANK NAME</span>
+                        <span class="receipt-row__value">{{ transfer.bank_name }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">ACCOUNT NAME</span>
+                        <span class="receipt-row__value">{{ transfer.beneficiary_name }}</span>
+                    </div>
+                    {% if transfer_type == 'Wire' %}
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">SWIFT CODE</span>
+                        <span class="receipt-row__value receipt-row__value--mono">{{ transfer.swift_code }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">COUNTRY</span>
+                        <span class="receipt-row__value">{{ transfer.country }}</span>
+                    </div>
+                    {% endif %}
+                    {% if transfer.narration %}
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">NARRATION</span>
+                        <span class="receipt-row__value">{{ transfer.narration }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">DATE</span>
+                        <span class="receipt-row__value">{{ transfer.created_at|date:"M d, Y H:i" }}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="receipt-row__label">TRANSFER TYPE</span>
+                        <span class="receipt-row__value">{{ transfer_type }} Transfer</span>
+                    </div>
+                </div>
+
+                <!-- RECEIPT FOOTER (print only) -->
+                <div class="receipt-print-footer">
+                    <p>This is a computer-generated receipt and requires no signature.</p>
+                    <p> allianstonebk &mdas &mdash; +1 (514) 446-9287</p>
+                </div>
+
+            </div><!-- end receipt card -->
+
+            <!-- ACTION BUTTONS -->
+            <div class="receipt-actions">
+                <a href="{% url 'app:dashboard' %}" class="receipt-btn receipt-btn--home">
+                    <i class="fas fa-home"></i> Go Home
+                </a>
+                <button onclick="printReceipt()" class="receipt-btn receipt-btn--print">
+                    <i class="fas fa-print"></i> Print Statement
+                </button>
+                <button onclick="downloadPDF()" class="receipt-btn receipt-btn--download">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+
+        </div><!-- end .page -->
+
+        <footer class="dash-footer">
+            <span>Copyright &copy; All rights reserved.</span>
+        </footer>
+
+    </div>
+
+    <!-- jsPDF for download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{% static 'app/dashboard.js' %}"></script>
+    <script>
+        function printReceipt() {
+            window.print();
+        }
+
+        async function downloadPDF() {
+            const btn = document.querySelectorAll('.receipt-btn');
+            btn.forEach(b => b.style.display = 'none');
+
+            const card = document.getElementById('receiptCard');
+            const canvas = await html2canvas(card, { scale: 2, useCORS: true });
+            const imgData = canvas.toDataURL('image/png');
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save(' allianstonebk{{ reference_id }}.pdf');
+
+            btn.forEach(b => b.style.display = '');
+        }
+    </script>
+</body>
+
+</html>

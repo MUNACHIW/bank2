@@ -360,9 +360,9 @@ def loans(request):
     }
     return render(request, 'app/dashloan.html', context)
 
+import uuid
 
-
-@login_required(login_url='bank:signin')
+@login_required(login_url='app:signin')
 def transfer_receipt(request, transfer_type, transfer_id):
     profile = getattr(request.user, 'profile', None)
  
@@ -384,7 +384,7 @@ def transfer_receipt(request, transfer_type, transfer_id):
         'transfer_type':    transfer_type_label,
         'reference_id':     reference_id,
     }
-    return render(request, 'bank/transfer_receipt.html', context)
+    return render(request, 'app/transfer_receipt.html', context)
 
 
 

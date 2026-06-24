@@ -27,6 +27,9 @@ urlpatterns = [
         path("loans/", views.busloans, name="loans"),
          path('deposits/',      views.deposits,      name='deposits'),
         path("about/", views.about , name="about"),
+         path('transfer/receipt/<str:transfer_type>/<int:transfer_id>/',
+     views.transfer_receipt,
+     name='transfer_receipt'),
             path(
         "logout/",
         views.logout_view,

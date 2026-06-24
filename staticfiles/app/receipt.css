@@ -1,0 +1,220 @@
+/* receipt.css */
+
+/* RECEIPT WRAP */
+.receipt-wrap {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,91,230,.08);
+    max-width: 580px;
+    margin: 0 auto 24px;
+    overflow: hidden;
+}
+
+/* BANK HEADER - hidden on screen, visible on print */
+.receipt-bank-header {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 32px;
+    background: var(--navy);
+    color: #fff;
+}
+.receipt-logo { width: 44px; height: 44px; object-fit: contain; }
+.receipt-bank-name { font-size: 1.2rem; font-weight: 700; color: #fff; }
+.receipt-bank-sub  { font-size: .75rem; color: rgba(255,255,255,.6); }
+
+/* HEADING */
+.receipt-heading {
+    background: linear-gradient(135deg, #005BE6 0%, #003ea3 100%);
+    padding: 32px 32px 24px;
+    text-align: center;
+    color: #fff;
+}
+.receipt-check {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    border: 3px solid rgba(255,255,255,.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin: 0 auto 14px;
+}
+.receipt-heading h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.receipt-subtext {
+    font-size: .82rem;
+    color: rgba(255,255,255,.75);
+    line-height: 1.5;
+}
+
+/* PROGRESS BAR */
+.receipt-progress {
+    background: #e2e8f0;
+    height: 28px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.receipt-progress__bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 100%;
+    background: linear-gradient(90deg, #005BE6, #4a93fb);
+    animation: progressFill 1s ease forwards;
+}
+.receipt-progress span {
+    position: relative;
+    z-index: 1;
+    font-size: .75rem;
+    font-weight: 700;
+    color: #fff;
+    padding-left: 12px;
+}
+@keyframes progressFill {
+    from { width: 0%; }
+    to   { width: 100%; }
+}
+
+/* DETAILS */
+.receipt-details {
+    padding: 8px 32px 24px;
+}
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+.receipt-row:last-child { border-bottom: none; }
+.receipt-row__label {
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    width: 140px;
+}
+.receipt-row__value {
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-align: right;
+}
+.receipt-row__value--mono {
+    font-family: 'Courier New', monospace;
+    font-size: .82rem;
+    color: #374151;
+}
+
+/* STATUS */
+.receipt-status {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+}
+.receipt-status--pending   { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.receipt-status--completed { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.receipt-status--in_progress,
+.receipt-status--in-progress { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+.receipt-status--failed    { background: var(--red-lt); color: #9b1c1c; border: 1px solid #fca5a5; }
+
+/* PRINT FOOTER - hidden on screen */
+.receipt-print-footer { display: none; }
+
+/* ACTION BUTTONS */
+.receipt-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 580px;
+    margin: 0 auto;
+}
+.receipt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: .875rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all .2s;
+}
+.receipt-btn--home {
+    background: var(--navy);
+    color: #fff;
+}
+.receipt-btn--home:hover { background: #1a3560; color: #fff; }
+
+.receipt-btn--print {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0,91,230,.28);
+}
+.receipt-btn--print:hover { background: #004cc7; transform: translateY(-1px); }
+
+.receipt-btn--download {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(15,175,98,.28);
+}
+.receipt-btn--download:hover { background: #0c9456; transform: translateY(-1px); }
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    body { background: #fff !important; }
+
+    /* Hide sidebar, topbar, footer, action buttons */
+    .sidebar, .overlay, .topbar, .dash-footer, .receipt-actions { display: none !important; }
+
+    /* Remove main margin */
+    .main { margin-left: 0 !important; }
+    .page { padding: 0 !important; }
+
+    /* Show bank header on print */
+    .receipt-bank-header { display: flex !important; }
+
+    /* Show print footer */
+    .receipt-print-footer {
+        display: block !important;
+        text-align: center;
+        padding: 16px 32px;
+        border-top: 1px solid #e2e8f0;
+        font-size: .72rem;
+        color: #64748b;
+        line-height: 1.8;
+    }
+
+    /* Full width receipt */
+    .receipt-wrap {
+        max-width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* Remove progress bar animation on print */
+    .receipt-progress__bar { width: 100% !important; animation: none !important; }
+}
+
+@media (max-width: 600px) {
+    .receipt-details { padding: 8px 16px 20px; }
+    .receipt-heading { padding: 24px 16px 18px; }
+    .receipt-row__label { width: 110px; }
+    .receipt-actions { flex-direction: column; align-items: stretch; }
+    .receipt-btn { justify-content: center; }
+}
