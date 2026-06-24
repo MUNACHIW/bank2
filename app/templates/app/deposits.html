@@ -65,56 +65,6 @@
             {% endif %}
 
             <div class="page-grid">
-                <!-- CREATE DEPOSIT -->
-                <div class="pcard">
-                    <div class="pcard__head">
-                        <div class="pcard__icon pcard__icon--blue"><i class="fas fa-wallet"></i></div>
-                        <div>
-                            <h2>Create Deposit</h2>
-                            <p>Start saving with DPS or Fixed Deposit</p>
-                        </div>
-                    </div>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="form-grid2">
-                            <div class="fg">
-                                <label>Deposit Type <span class="req">*</span></label>
-                                <div class="iw iw--sel">
-                                    <select name="deposit_type" required>
-                                        <option value="">-- Select Type --</option>
-                                        <option value="DPS">Deposit Pension Scheme (DPS)</option>
-                                        <option value="Fixed">Fixed Deposit Receipt (FDR)</option>
-                                    </select>
-                                    <i class="fas fa-chevron-down sel-arr"></i>
-                                </div>
-                            </div>
-                            <div class="fg">
-                                <label>Amount <span class="req">*</span></label>
-                                <div class="iw iw--icon"><span class="ipfx"><i class="fas fa-dollar-sign"></i></span>
-                                    <input type="number" name="amount" placeholder="0.00" step="0.01" min="1" required>
-                                </div>
-                            </div>
-                            <div class="fg">
-                                <label>Duration (Months) <span class="req">*</span></label>
-                                <div class="iw"><input type="number" name="duration_months" placeholder="e.g. 12"
-                                        min="1" max="360" required></div>
-                            </div>
-                            <div class="fg">
-                                <label>Interest Rate (%)</label>
-                                <div class="iw"><input type="number" name="interest_rate" value="5.00" step="0.01"
-                                        min="0"></div>
-                            </div>
-                        </div>
-                        <div class="notice"><i class="fas fa-info-circle"></i> Maturity date is calculated automatically
-                            from today's date.</div>
-                        <div class="form-footer">
-                            <button type="submit" class="sbtn sbtn--blue"><i class="fas fa-plus"></i> Create
-                                Deposit</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- DEPOSIT HISTORY -->
                 <div class="pcard">
                     <div class="pcard__head">
                         <div class="pcard__icon pcard__icon--green"><i class="fas fa-history"></i></div>

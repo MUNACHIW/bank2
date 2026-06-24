@@ -63,11 +63,20 @@ class LoanApplicationAdmin(admin.ModelAdmin):
 
 @admin.register(Deposit)
 class DepositAdmin(admin.ModelAdmin):
-    list_display  = ('user', 'deposit_type', 'amount', 'duration_months', 'interest_rate', 'status', 'maturity_date', 'created_at')
+    list_display  = (
+        'user', 'deposit_type', 'amount', 'duration_months',
+        'interest_rate', 'status', 'maturity_date', 'created_at'
+    )
     list_filter   = ('deposit_type', 'status', 'created_at')
     search_fields = ('user__username',)
     ordering      = ('-created_at',)
-    list_editable = ("created_at",)
+
+    # Fields shown in the "Add Deposit" form
+    fields = (
+        'user', 'deposit_type', 'amount', 'duration_months',
+        'interest_rate', 'maturity_date', 'status'
+    )
+
     
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):

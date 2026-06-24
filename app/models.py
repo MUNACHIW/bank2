@@ -143,8 +143,8 @@ class LoanApplication(models.Model):
 
 class Deposit(models.Model):
     DEPOSIT_TYPE_CHOICES = [
-        ('DPS',   'Deposit Pension Scheme (DPS)'),
-        ('Fixed', 'Fixed Deposit Receipt (FDR)'),
+        ('Demand',   'Demand Deposit'),
+        ('Fixed', 'Fixed Deposit'),
     ]
     STATUS_CHOICES = [
         ('Active',   'Active'),
