@@ -535,7 +535,7 @@ def settings_view(request):
                 profile.set_pin(new_pin)
                 request.session.pop('pin_verified', None)
                 messages.success(request, 'PIN changed successfully.')
-            return redirect('bank:settings')
+            return redirect('app:settings')
  
         if action == 'change_password':
             current_password = request.POST.get('current_password', '')
