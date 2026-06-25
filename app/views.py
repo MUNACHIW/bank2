@@ -117,16 +117,13 @@ from operator import attrgetter
 from datetime import date, timedelta
 from decimal import Decimal
 import json
-
 @login_required(login_url="app:login")
 def dashboard(request):
     profile = getattr(request.user, "profile", None)
-
-    # ✅ use profile.balance, not initial_balance
     balance = profile.balance if profile else Decimal("0.00")
 
     # Recent transfers
-    wire_transfers = WireTransfer.objects.filter(user=request.user).order_by('-created_at')[:3]
+    wire_transfers     = WireTransfer.objects.filter(user=request.user).order_by('-created_at')[:3]
     domestic_transfers = DomesticTransfer.objects.filter(user=request.user).order_by('-created_at')[:3]
 
     all_transfers = sorted(
@@ -135,19 +132,19 @@ def dashboard(request):
         reverse=True
     )[:3]
 
-    # Total amount sent (expenses)
-    wire_total = WireTransfer.objects.filter(user=request.user).aggregate(t=Sum('amount'))['t'] or Decimal("0.00")
+    # Total expenses
+    wire_total     = WireTransfer.objects.filter(user=request.user).aggregate(t=Sum('amount'))['t'] or Decimal("0.00")
     domestic_total = DomesticTransfer.objects.filter(user=request.user).aggregate(t=Sum('amount'))['t'] or Decimal("0.00")
     total_expenses = wire_total + domestic_total
 
     # Most recent transaction amount
-    latest_txn = all_transfers[0] if all_transfers else None
+    latest_txn        = all_transfers[0] if all_transfers else None
     latest_txn_amount = latest_txn.amount if latest_txn else Decimal("0.00")
 
     # Chart data: last 7 days
-    today = date.today()
+    today      = date.today()
     last_7_days = [today - timedelta(days=i) for i in range(6, -1, -1)]
-    labels = [d.strftime('%a') for d in last_7_days]
+    labels     = [d.strftime('%a') for d in last_7_days]
 
     wire_daily = (
         WireTransfer.objects
@@ -167,16 +164,16 @@ def dashboard(request):
     wire_map     = {str(item['day']): float(item['total']) for item in wire_daily}
     domestic_map = {str(item['day']): float(item['total']) for item in domestic_daily}
 
+    # ✅ Both must be LISTS aligned to last_7_days, not dicts
     chart_wire     = [wire_map.get(str(d), 0) for d in last_7_days]
     chart_domestic = [domestic_map.get(str(d), 0) for d in last_7_days]
 
-    # ✅ unread_notifications so the bell dot works
+    # Unread notifications
     try:
-        from .models import Notification
         unread_notifications = Notification.objects.filter(user=request.user, is_read=False).count()
     except Exception:
         unread_notifications = 0
- 
+
     context = {
         "profile":              profile,
         "balance_display":      f"{balance:,.2f}",
@@ -189,7 +186,7 @@ def dashboard(request):
         "unread_notifications": unread_notifications,
         "chart_labels":         json.dumps(labels),
         "chart_wire":           json.dumps(chart_wire),
-        "chart_domestic":       json.dumps(domestic_map),
+        "chart_domestic":       json.dumps(chart_domestic),   # ✅ list, not domestic_map
     }
     return render(request, "app/dashboard.html", context)
 

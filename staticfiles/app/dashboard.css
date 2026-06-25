@@ -20,7 +20,9 @@
 
 body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c; }
 
-/* ---- SIDEBAR ---- */
+/* ================================================================
+   SIDEBAR
+================================================================ */
 .sidebar {
   position: fixed;
   top: 0; left: 0;
@@ -64,17 +66,13 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
 }
 .nav-item i { width: 16px; text-align: center; }
 .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
-.nav-item.active { background:#D8E28C; color: #fff; box-shadow: 0 4px 14px rgba(0,91,230,.3); }
+.nav-item.active { background: #D8E28C; color: #fff; box-shadow: 0 4px 14px rgba(0,91,230,.3); }
 .sidebar-footer { padding: 12px 12px 20px !important; }
 .nav-item.signout:hover { background: rgba(229,62,62,.15); color: #fc8181; }
 
-.chart-container {
-    position: relative;
-    height: 260px;
-    width: 100%;
-}
-
-/* ---- OVERLAY ---- */
+/* ================================================================
+   OVERLAY (mobile)
+================================================================ */
 .overlay {
   display: none;
   position: fixed; inset: 0;
@@ -83,7 +81,9 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
 }
 .overlay.show { display: block; }
 
-/* ---- MAIN ---- */
+/* ================================================================
+   MAIN
+================================================================ */
 .main {
   margin-left: var(--sidebar);
   min-height: 100vh;
@@ -92,7 +92,9 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
   transition: margin-left .3s ease;
 }
 
-/* ---- TOPBAR ---- */
+/* ================================================================
+   TOPBAR
+================================================================ */
 .topbar {
   position: sticky;
   top: 0;
@@ -128,21 +130,25 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
 }
 .avatar {
   width: 38px; height: 38px; border-radius: 50%;
-  background:#065f46; color: #fff;
+  background: #065f46; color: #fff;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: .82rem; overflow: hidden;
   border: 2px solid #4a93fb;
 }
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ---- PAGE ---- */
+/* ================================================================
+   PAGE
+================================================================ */
 .page { flex: 1; padding: 28px 24px 16px; }
 
 .greeting { margin-bottom: 22px; }
 .greeting h1 { font-size: 1.35rem; font-weight: 700; color: var(--navy); }
 .greeting p  { color: var(--muted); font-size: .875rem; margin-top: 3px; }
 
-/* ---- SUMMARY CARDS ---- */
+/* ================================================================
+   SUMMARY CARDS
+================================================================ */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -159,6 +165,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
   border: 1px solid var(--border);
   box-shadow: 0 2px 12px rgba(0,91,230,.06);
   transition: transform .2s;
+  min-width: 0; /* prevent overflow in grid */
 }
 .card-stat:hover { transform: translateY(-2px); }
 .card-stat__icon {
@@ -171,24 +178,39 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
 .card-amber .card-stat__icon { background: var(--amber-lt); color: var(--amber); }
 .card-red   .card-stat__icon { background: var(--red-lt);   color: var(--red); }
 .card-stat__label { font-size: .73rem; color: var(--muted); font-weight: 500; }
-.card-stat__value { font-size: .98rem; font-weight: 700; color: var(--navy); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-stat__value {
+  font-size: .98rem; font-weight: 700; color: var(--navy);
+  margin-top: 2px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
 
-/* ---- MID ROW ---- */
+/* ================================================================
+   MID ROW  — balance card + chart stack vertically below 1100px
+================================================================ */
 .mid-row {
   display: grid;
-  grid-template-columns: 370px 1fr;
+  grid-template-columns: minmax(0, 370px) minmax(0, 1fr);
   gap: 20px;
   margin-bottom: 22px;
   align-items: start;
 }
 
-/* ---- BALANCE CARD ---- */
+/* chart + table share the right column, stacked */
+.mid-row > .chart-card,
+.mid-row > .table-wrap {
+  min-width: 0;
+}
+
+/* ================================================================
+   BALANCE CARD
+================================================================ */
 .balance-card {
-  background:#065f46;
+  background: #065f46;
   border-radius: var(--radius);
   padding: 22px;
   color: #fff;
   box-shadow: 0 8px 28px rgba(0,91,230,.28);
+  min-width: 0;
 }
 .balance-card__head {
   display: flex;
@@ -201,7 +223,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
   width: 40px; height: 40px; border-radius: 50%;
   background: rgba(255,255,255,.2); border: 2px solid rgba(255,255,255,.35);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: .82rem; overflow: hidden;
+  font-weight: 700; font-size: .82rem; overflow: hidden; flex-shrink: 0;
 }
 .balance-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
 .balance-card__name { font-size: .875rem; font-weight: 600; }
@@ -209,7 +231,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
   background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.3);
   color: #fff; width: 30px; height: 30px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: .8rem; transition: background .2s;
+  cursor: pointer; font-size: .8rem; transition: background .2s; flex-shrink: 0;
 }
 .add-btn:hover { background: rgba(255,255,255,.28); }
 
@@ -217,13 +239,16 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
 .balance-card__cur { font-size: .9rem; opacity: .8; margin-right: 4px; }
 .balance-card__num { font-size: 1.85rem; font-weight: 700; letter-spacing: -.5px; }
 
-.balance-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.balance-tabs {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; margin-bottom: 16px;
+}
 .balance-tab {
   background: rgba(255,255,255,.12);
   border-radius: 10px; padding: 10px 13px;
   display: flex; flex-direction: column; gap: 4px;
 }
-.balance-tab span { font-size: .72rem; opacity: .75; }
+.balance-tab span  { font-size: .72rem; opacity: .75; }
 .balance-tab strong { font-size: .95rem; font-weight: 600; }
 
 .meta-list { list-style: none; margin-bottom: 18px; }
@@ -233,7 +258,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
   font-size: .76rem;
 }
 .meta-list li span:first-child { opacity: .7; }
-.meta-list li span:last-child { font-weight: 600; }
+.meta-list li span:last-child  { font-weight: 600; }
 
 .balance-actions { display: flex; gap: 10px; }
 .action-btn {
@@ -241,13 +266,16 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
   font-size: .76rem; font-weight: 600; text-decoration: none;
   text-align: center; display: flex; align-items: center;
   justify-content: center; gap: 5px; transition: all .2s;
+  white-space: nowrap;
 }
 .action-btn--ghost { background: transparent; border: 1.5px solid rgba(255,255,255,.4); color: #fff; }
 .action-btn--ghost:hover { background: rgba(255,255,255,.1); color: #fff; }
 .action-btn--solid { background: rgba(255,255,255,.9); border: none; color: var(--blue); }
 .action-btn--solid:hover { background: #fff; color: var(--blue); }
 
-/* ---- PILLS ---- */
+/* ================================================================
+   PILLS
+================================================================ */
 .pill {
   display: inline-block; padding: 3px 10px;
   border-radius: 20px; font-size: .68rem; font-weight: 600; letter-spacing: .4px;
@@ -255,88 +283,146 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a202c
 .pill--active    { background: #d1fae5; color: #065f46; }
 .pill--completed { background: #d1fae5; color: #065f46; }
 .pill--pending   { background: var(--amber-lt); color: #92400e; }
-.pill--failed    { background: var(--red-lt); color: #9b1c1c; }
+.pill--failed    { background: var(--red-lt);   color: #9b1c1c; }
 
-/* ---- CHART CARD ---- */
+/* ================================================================
+   CHART CARD
+================================================================ */
 .chart-card {
   background: var(--white);
   border-radius: var(--radius);
   padding: 22px;
   border: 1px solid var(--border);
   box-shadow: 0 2px 12px rgba(0,91,230,.06);
+  min-width: 0;
 }
 .chart-card__head {
   display: flex; align-items: flex-start;
   justify-content: space-between; margin-bottom: 18px;
+  flex-wrap: wrap; gap: 8px;
 }
 .chart-card__head h2 { font-size: .98rem; font-weight: 700; color: var(--navy); }
 .chart-card__head p  { font-size: .76rem; color: var(--muted); margin-top: 2px; }
-.legend { display: flex; gap: 14px; font-size: .78rem; color: var(--muted); }
+.legend { display: flex; gap: 14px; font-size: .78rem; color: var(--muted); flex-wrap: wrap; }
 .legend span { display: flex; align-items: center; gap: 5px; }
 
-/* ---- TABLE ---- */
+/* KEY FIX — chart container is responsive with a sensible min/max height */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: clamp(200px, 30vw, 280px); /* fluid between 200px and 280px */
+}
+
+/* ================================================================
+   TRANSACTION TABLE
+================================================================ */
 .table-wrap {
   background: var(--white);
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: 0 2px 12px rgba(0,91,230,.06);
   overflow: hidden;
-  width: 100% !important;
+  min-width: 0;
 }
 .table-wrap__head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 22px; border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; gap: 8px;
 }
 .table-wrap__head h2 { font-size: .98rem; font-weight: 700; color: var(--navy); }
 .view-all {
   font-size: .78rem; font-weight: 600; color: var(--blue);
   text-decoration: none; padding: 5px 14px;
   border: 1px solid var(--blue); border-radius: 8px; transition: all .2s;
+  white-space: nowrap;
 }
 .view-all:hover { background: var(--blue); color: #fff; }
 
-.table-scroll { overflow-x: auto; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; font-size: .83rem; }
 thead th {
   background: #f8fafc; padding: 11px 16px;
   text-align: left; font-weight: 600; font-size: .72rem;
   color: var(--muted); text-transform: uppercase; letter-spacing: .4px;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
 }
-tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); }
+tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 tbody tr:last-child td { border-bottom: none; }
 tbody tr:hover td { background: #f8faff; }
 .credit { color: var(--green); font-weight: 700; }
 .debit  { color: var(--red);   font-weight: 700; }
-.empty-row { text-align: center; padding: 48px 16px !important; color: var(--muted); }
+.empty-row { text-align: center; padding: 48px 16px !important; color: var(--muted); white-space: normal !important; }
 .empty-row i { font-size: 2rem; display: block; margin-bottom: 10px; opacity: .3; }
 .empty-row p { font-size: .875rem; }
 
-/* ---- FOOTER ---- */
+/* ================================================================
+   FOOTER
+================================================================ */
 .dash-footer {
   padding: 14px 24px;
   display: flex; justify-content: space-between;
   font-size: .76rem; color: var(--muted);
   border-top: 1px solid var(--border);
   background: var(--white);
+  flex-wrap: wrap; gap: 4px;
 }
 
-/* ---- RESPONSIVE ---- */
+/* ================================================================
+   RESPONSIVE BREAKPOINTS
+================================================================ */
+
+/* 4 → 2 summary cards */
 @media (max-width: 1200px) {
   .cards-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 1024px) {
-  .mid-row { grid-template-columns: 1fr; }
+
+/* mid-row: balance card goes full width, chart below */
+@media (max-width: 1100px) {
+  .mid-row {
+    grid-template-columns: 1fr;
+  }
+  .chart-container {
+    height: clamp(220px, 40vw, 300px);
+  }
 }
+
+/* sidebar collapses */
 @media (max-width: 900px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .main { margin-left: 0; }
   .menu-btn { display: flex; }
   .page { padding: 20px 16px; }
+  .chart-container { height: 240px; }
 }
+
+/* tablet portrait: 2 → 2 cards still OK, tighten padding */
+@media (max-width: 768px) {
+  .page { padding: 16px 12px; }
+  .balance-card { padding: 18px; }
+  .chart-card  { padding: 16px; }
+  .balance-card__num { font-size: 1.6rem; }
+  .chart-container { height: 220px; }
+  .cards-grid { gap: 12px; }
+  .mid-row    { gap: 14px; }
+}
+
+/* 2 → 1 summary cards, full-width everything */
 @media (max-width: 580px) {
-  .cards-grid { grid-template-columns: 1fr; }
-  .balance-card__num { font-size: 1.5rem; }
-  .dash-footer { flex-direction: column; gap: 4px; text-align: center; }
+  .cards-grid { grid-template-columns: 1fr; gap: 10px; }
+  .balance-card__num { font-size: 1.4rem; }
+  .balance-actions { flex-direction: column; }
+  .action-btn { width: 100%; }
+  .chart-container { height: 200px; }
+  .dash-footer { flex-direction: column; text-align: center; }
+  .topbar { padding: 0 14px; gap: 10px; }
+}
+
+/* very small phones */
+@media (max-width: 380px) {
+  .card-stat { padding: 14px; gap: 10px; }
+  .card-stat__icon { width: 38px; height: 38px; }
+  .chart-container { height: 180px; }
+  .balance-tabs { grid-template-columns: 1fr; }
 }

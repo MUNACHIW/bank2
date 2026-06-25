@@ -225,15 +225,14 @@
             </footer>
 
         </div><!-- end .main -->
-
-        <script src="{% static 'app/dashboard.js' %}"></script>
         <script id="chartData" type="application/json">
-                            {
-                                "labels":   {{ chart_labels|safe }},
-                                "wire":     {{ chart_wire|safe }},
-                                "domestic": {{ chart_domestic|safe }}
-                            }
+        {
+            "labels":   {{ chart_labels|safe }},
+            "wire":     {{ chart_wire|safe }},
+            "domestic": {{ chart_domestic|safe }}
+        }
     </script>
+        <script src="{% static 'app/dashboard.js' %}"></script>
 </body>
 
 </html>
