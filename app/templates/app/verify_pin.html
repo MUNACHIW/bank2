@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter PIN </title>
+    <link rel="shortcut icon" href="{% static 'app/image/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'app/pin.css' %}">
+</head>
+
+<body>
+    <div class="pin-page">
+        <div class="pin-card">
+
+            <!-- USER -->
+            <div class="pin-user">
+                <div class="pin-user__avatar">
+
+                    {{ first_name|first|upper }}
+                </div>
+                <div class="pin-user__name">{{ full_name }}</div>
+            </div>
+
+            <h1>Welcome</h1>
+            <p class="pin-sub">Enter PIN</p>
+
+            <!-- MESSAGES -->
+            {% if messages %}
+            <div class="pin-messages">
+                {% for message in messages %}
+                <div class="pin-alert pin-alert--{{ message.tags }}">
+                    <i
+                        class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'info' %}fa-info-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" id="pinForm">
+                {% csrf_token %}
+
+                <div class="pin-field-label">PINCODE</div>
+                <div class="pin-display">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="pinInput" name="pin" maxlength="4" placeholder="PINCODE" readonly
+                        required autocomplete="off">
+                </div>
+
+                <!-- NUMPAD -->
+                <div class="numpad">
+                    <button type="button" class="numpad-btn" data-num="1">1</button>
+                    <button type="button" class="numpad-btn" data-num="2">2</button>
+                    <button type="button" class="numpad-btn" data-num="3">3</button>
+                    <button type="button" class="numpad-btn" data-num="4">4</button>
+                    <button type="button" class="numpad-btn" data-num="5">5</button>
+                    <button type="button" class="numpad-btn" data-num="6">6</button>
+                    <button type="button" class="numpad-btn" data-num="7">7</button>
+                    <button type="button" class="numpad-btn" data-num="8">8</button>
+                    <button type="button" class="numpad-btn" data-num="9">9</button>
+                    <button type="button" class="numpad-btn numpad-btn--clear" id="clearBtn">X</button>
+                    <button type="button" class="numpad-btn" data-num="0">0</button>
+                    <button type="button" class="numpad-btn numpad-btn--ghost">?</button>
+                </div>
+
+                <button type="submit" class="pin-submit">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        const pinInput = document.getElementById('pinInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const form = document.getElementById('pinForm');
+
+        document.querySelectorAll('.numpad-btn[data-num]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (pinInput.value.length < 4) {
+                    pinInput.value += btn.dataset.num;
+                }
+                if (pinInput.value.length === 4) {
+                    setTimeout(() => form.submit(), 150);
+                }
+            });
+        });
+
+        clearBtn.addEventListener('click', () => {
+            pinInput.value = '';
+        });
+    </script>
+</body>
+
+</html>

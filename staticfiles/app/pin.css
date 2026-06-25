@@ -1,0 +1,178 @@
+
+
+.pin-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    padding: 20px;
+}
+
+.pin-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,91,230,.10);
+    padding: 32px 28px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+
+/* USER INFO (verify page) */
+.pin-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+.pin-user__avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--blue-lt);
+    color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.pin-user__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.pin-user__name { font-weight: 600; font-size: .95rem; color: var(--navy); }
+
+/* HEADING */
+.pin-card h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+}
+.pin-card .pin-sub {
+    font-size: .85rem;
+    color: var(--blue);
+    margin-bottom: 22px;
+}
+
+/* PIN INPUT FIELD */
+.pin-field-label {
+    text-align: left;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: .6px;
+    margin-bottom: 6px;
+}
+.pin-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 22px;
+}
+.pin-display i { color: var(--muted); font-size: .95rem; }
+.pin-display input {
+    border: none; outline: none; background: transparent;
+    font-size: 1.1rem; letter-spacing: 8px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--navy); width: 100%;
+    text-align: left;
+}
+.pin-display input::placeholder {
+    letter-spacing: 2px;
+    font-size: .85rem;
+    color: #cbd5e1;
+}
+
+/* NUMPAD */
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 26px;
+    max-width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.numpad-btn {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 1.5px solid var(--blue-lt);
+    background: var(--white);
+    color: var(--blue);
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all .15s;
+}
+.numpad-btn:hover {
+    background: var(--blue-lt);
+    transform: scale(1.05);
+}
+.numpad-btn:active {
+    transform: scale(0.95);
+    background: var(--blue);
+    color: #fff;
+}
+.numpad-btn--ghost {
+    border-color: transparent;
+    background: transparent;
+    cursor: default;
+}
+.numpad-btn--ghost:hover {
+    background: transparent;
+    transform: none;
+}
+.numpad-btn--clear {
+    color: var(--red);
+    border-color: #fecaca;
+}
+.numpad-btn--clear:hover { background: var(--red-lt); }
+
+/* SUBMIT */
+.pin-submit {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--green);
+    color: #fff;
+    font-size: .95rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all .2s;
+    box-shadow: 0 4px 14px rgba(15,175,98,.3);
+}
+.pin-submit:hover {
+    background: #0c9456;
+    transform: translateY(-1px);
+}
+
+/* SET PIN — dual input layout */
+.pin-confirm-group {
+    margin-bottom: 16px;
+}
+.pin-confirm-group .pin-field-label { margin-top: 14px; }
+
+/* MESSAGES */
+.pin-messages { margin-bottom: 16px; }
+.pin-alert {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; border-radius: 8px;
+    font-size: .8rem; font-weight: 500;
+    text-align: left; margin-bottom: 8px;
+}
+.pin-alert--error   { background: var(--red-lt); color: #9b1c1c; border: 1px solid #fca5a5; }
+.pin-alert--success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.pin-alert--info    { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+
+@media (max-width: 380px) {
+    .numpad-btn { width: 56px; height: 56px; font-size: 1rem; }
+    .numpad { gap: 10px; }
+}
