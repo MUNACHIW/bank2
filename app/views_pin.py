@@ -30,7 +30,7 @@ def verify_pin(request):
         if profile and profile.check_pin(pin):
             request.session['pin_verified'] = True
             next_url = request.session.pop('next_after_pin', None)
-            return redirect(next_url or 'app:dashboard')
+            return redirect(next_url or 'app:domestic_transfer')
 
         messages.error(request, 'Incorrect PIN. Please try again.')
         return render(request, 'app/verify_pin.html', context)
