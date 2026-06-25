@@ -11,7 +11,8 @@ from itertools import chain
 from operator import attrgetter
 from django.core.paginator import Paginator
 from decimal import Decimal
-
+from .views_pin import pin_required , verify_pin
+import uuid
 
 User = get_user_model()
 # Create your views here.
@@ -192,7 +193,7 @@ def dashboard(request):
 
 
 
-from .views_pin import pin_required
+
 
 @login_required(login_url='app:login')
 @pin_required
@@ -428,60 +429,9 @@ def transfer_receipt(request, transfer_type, transfer_id):
     return render(request, 'app/transfer_receipt.html', context)
 
 
-@login_required(login_url='app:signin')
-def set_pin(request):
-    profile = getattr(request.user, 'profile', None)
 
-    # If PIN already set, skip straight to verify
-    if profile and profile.has_pin:
-        return redirect('app:verify_pin')
 
-    if request.method == 'POST':
-        pin = request.POST.get('pin', '').strip()
-        confirm_pin = request.POST.get('confirm_pin', '').strip()
 
-        if not pin.isdigit() or len(pin) != 4:
-            messages.error(request, 'PIN must be exactly 4 digits.')
-            return render(request, 'app/set_pin.html', {'profile': profile})
-
-        if pin != confirm_pin:
-            messages.error(request, 'PINs do not match.')
-            return render(request, 'app/set_pin.html', {'profile': profile})
-
-        profile.set_pin(pin)
-        request.session['pin_verified'] = True
-        messages.success(request, 'Your transaction PIN has been set successfully.')
-
-        next_url = request.session.pop('next_after_pin', None)
-        return redirect(next_url or 'app:dashboard')
-
-    return render(request, 'app/set_pin.html', {'profile': profile})
-
-@login_required(login_url='app:signin')
-def verify_pin(request):
-    profile = getattr(request.user, 'profile', None)
-
-    if not profile or not profile.has_pin:
-        return redirect('app:set_pin')
-
-    context = {
-        'profile': profile,
-        'first_name': request.user.first_name or request.user.username,
-        'full_name': request.user.get_full_name() or request.user.username,
-    }
-
-    if request.method == 'POST':
-        pin = request.POST.get('pin', '').strip()
-
-        if profile.check_pin(pin):
-            request.session['pin_verified'] = True
-            next_url = request.session.pop('next_after_pin', None)
-            return redirect(next_url or 'app:dashboard')
-
-        messages.error(request, 'Incorrect PIN. Please try again.')
-        return render(request, 'app/verify_pin.html', context)
-
-    return render(request, 'app/verify_pin.html', context)
 
 
 from dateutil.relativedelta import relativedelta 
@@ -655,6 +605,7 @@ def about(request):
     return render(request, 'app/about.html')
 
 def logout_view(request):
+    request.session.pop('pin_verified', None)
 
     logout(request)
 

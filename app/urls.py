@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views_pin import verify_pin
 app_name = "app"
 urlpatterns = [
     path(
@@ -30,8 +30,7 @@ urlpatterns = [
          path('transfer/receipt/<str:transfer_type>/<int:transfer_id>/',
      views.transfer_receipt,
      name='transfer_receipt'),
-         path('set-pin/',    views.set_pin,    name='set_pin'),
-       path('verify-pin/', views.verify_pin, name='verify_pin'),
+          path('verify-pin/',   verify_pin,  name='verify_pin'),
             path(
         "logout/",
         views.logout_view,
