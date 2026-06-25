@@ -88,7 +88,7 @@ def signup(request):
             last_name=last_name,
         )
 
-        UserProfile.objects.create(
+        profile =  UserProfile.objects.create(
             user=user,
             middle_name=middle_name or "",
             phone=phone or "",
@@ -100,10 +100,13 @@ def signup(request):
             zip=zip_code or "",
             account_type=account_type or "checking",
             currency=currency or "USD",
-            pin=pin or "",
+            pin="", 
             balance=Decimal("0.00"),
             is_active=True,
         )
+        
+        if pin:
+              profile.set_pin(pin)
 
         messages.success(request, "Account created successfully.")
         return redirect("/login")
